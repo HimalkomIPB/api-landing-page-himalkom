@@ -1,0 +1,30 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Komnews;
+use App\Models\KomnewsCategory;
+use Carbon\Carbon;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+
+class KomnewsController extends Controller
+{
+    public function index(): JsonResponse
+    {
+        $today = Carbon::today(config("app.timezone"));
+        $categories = KomnewsCategory::all(["name", "slug"]);
+        $komnews = Komnews::whereDate('created_at', '!=', $today)->get();
+        $todayHeadlines = Komnews::whereDate('created_at', $today)->get();
+        return response()->json([
+            'categories' => $categories,
+            'komnews' => $komnews,
+            'todayHeadlines' => $todayHeadlines
+        ]);
+    }
+
+    public function showBySlug(Komnews $komnews): JsonResponse
+    {
+        return response()->json(['komnews' => $komnews]);
+    }
+}
