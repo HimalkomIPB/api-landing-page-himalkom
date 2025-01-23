@@ -9,4 +9,4 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::get('/komnews', [KomnewsController::class, 'index']);
-Route::get('/komnews/{komnews:slug}', [KomnewsController::class, 'showBySlug']);
+Route::get('/komnews/{slug}', [KomnewsController::class, 'showBySlug']);
