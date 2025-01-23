@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Komnews;
 use App\Models\KomnewsCategory;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -23,8 +24,13 @@ class KomnewsController extends Controller
         ]);
     }
 
-    public function showBySlug(Komnews $komnews): JsonResponse
+    public function showBySlug(String $slug): JsonResponse
     {
-        return response()->json(['komnews' => $komnews]);
+        try {
+            $komnews = Komnews::where("slug", $slug)->firstOrFail();
+            return response()->json(['komnews' => $komnews]);
+        } catch (ModelNotFoundException) {
+            return response()->json(['error' => 'Komnews not found'], 404);
+        }
     }
 }
