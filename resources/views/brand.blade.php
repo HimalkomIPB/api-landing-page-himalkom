@@ -1,0 +1,1 @@
+<img src="{{ asset('storage/images/himalkom_logo.jpg') }}" alt="Logo" class="h-10">
