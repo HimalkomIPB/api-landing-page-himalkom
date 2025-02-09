@@ -4,26 +4,26 @@ namespace App\Filament\Resources;
 
 use Filament\Forms;
 use Filament\Tables;
-use App\Models\Syntax;
+use App\Models\Research;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Section;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Forms\Components\FileUpload;
 use Illuminate\Database\Eloquent\Builder;
-use App\Filament\Resources\SyntaxResource\Pages;
+use App\Filament\Resources\ResearchResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\SyntaxResource\RelationManagers;
-use Filament\Tables\Columns\ImageColumn;
-use Filament\Tables\Columns\TextColumn;
+use App\Filament\Resources\ResearchResource\RelationManagers;
 
-class SyntaxResource extends Resource
+class ResearchResource extends Resource
 {
-    protected static ?string $model = Syntax::class;
+    protected static ?string $model = Research::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-document';
+    protected static ?string $navigationIcon = 'heroicon-o-document-magnifying-glass';
 
     public static function form(Form $form): Form
     {
@@ -38,7 +38,7 @@ class SyntaxResource extends Resource
                         ->required(),
                     Grid::make(2)
                         ->schema([
-                            TextInput::make("title")->placeholder("Syntax Edisi IX")->required(),
+                            TextInput::make("title")->placeholder("Survei Minat Jenjang Karir Mahasiswa Ilmu Komputer IPB")->required(),
                         ]),
                     Grid::make(2)
                         ->schema([
@@ -83,19 +83,19 @@ class SyntaxResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListSyntaxes::route('/'),
-            'create' => Pages\CreateSyntax::route('/create'),
-            'edit' => Pages\EditSyntax::route('/{record}/edit'),
+            'index' => Pages\ListResearch::route('/'),
+            'create' => Pages\CreateResearch::route('/create'),
+            'edit' => Pages\EditResearch::route('/{record}/edit'),
         ];
     }
 
     public static function getNavigationGroup(): ?string
     {
-        return 'Syntax';
+        return 'Riset';
     }
 
     public static function getNavigationSort(): ?int
     {
-        return 4;
+        return 3;
     }
 }

@@ -14,8 +14,8 @@ Route::get('/user', function (Request $request) {
 Route::get('/komnews', [KomnewsController::class, 'index']);
 Route::get('/komnews/{slug}', [KomnewsController::class, 'showBySlug']);
 
-// Syntax
-Route::get("/syntaxes", [SyntaxController::class, "index"]);
-
 // Research
 Route::get("/research", [ResearchController::class, "index"]);
+
+// Syntax
+Route::get("/syntaxes", [SyntaxController::class, "index"]);
