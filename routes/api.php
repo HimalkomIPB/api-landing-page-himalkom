@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\KomnewsController;
+use App\Http\Controllers\ResearchController;
 use App\Http\Controllers\SyntaxController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -15,3 +16,6 @@ Route::get('/komnews/{slug}', [KomnewsController::class, 'showBySlug']);
 
 // Syntax
 Route::get("/syntaxes", [SyntaxController::class, "index"]);
+
+// Research
+Route::get("/research", [ResearchController::class, "index"]);
