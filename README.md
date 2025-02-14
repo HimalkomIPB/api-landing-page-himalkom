@@ -20,4 +20,18 @@
 | :-------- | :------- | :-------------------------------- |
 | `slug`      | `string` | **Required**. Slug of komnews to fetch |
 
+### Syntaxes
 
+#### Get all syntaxes
+
+```http
+  GET /syntaxes
+```
+
+### Research
+
+#### Get all research
+
+```http
+  GET /research
+```
