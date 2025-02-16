@@ -56,7 +56,7 @@ class SyntaxResource extends Resource
                 ImageColumn::make("image"),
                 TextColumn::make("title")->sortable(),
                 TextColumn::make("year")->sortable(),
-                TextColumn::make("link")->limit(20),
+                TextColumn::make("link")->url(fn(Syntax $syntax) => $syntax->link)->color("primary")->openUrlInNewTab(),
                 TextColumn::make('created_at')->dateTime()->sortable(),
                 TextColumn::make('updated_at')->label('last updated')->since()->sortable(),
             ])

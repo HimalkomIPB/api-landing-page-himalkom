@@ -37,7 +37,9 @@ class IGallerySubjectResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make("name")->sortable()
+                TextColumn::make("name")->sortable(),
+                TextColumn::make('created_at')->dateTime()->sortable(),
+                TextColumn::make('updated_at')->label('last updated')->since()->sortable(),
             ])
             ->filters([
                 //
