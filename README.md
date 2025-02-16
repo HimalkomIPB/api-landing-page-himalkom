@@ -35,3 +35,11 @@
 ```http
   GET /research
 ```
+
+### IGallery
+
+#### Get all IGallery
+
+```http
+  GET /igalleries
+```
