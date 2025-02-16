@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\IGalleryController;
+use App\Http\Controllers\IGallerySubjectController;
 use App\Http\Controllers\KomnewsController;
 use App\Http\Controllers\ResearchController;
 use App\Http\Controllers\SyntaxController;
@@ -9,6 +11,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
+
+// iGallery
+Route::get("/igalleries", [IGalleryController::class, 'index']);
+Route::get("/igalleries/subjects", [IGallerySubjectController::class, 'index']);
 
 // Komnews
 Route::get('/komnews', [KomnewsController::class, 'index']);
