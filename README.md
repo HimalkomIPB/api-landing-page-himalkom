@@ -52,7 +52,7 @@ http://localhost:8000/admin
 
 ### Syntaxes
 
-#### Get all syntaxes
+#### Get syntaxes
 
 ```http
   GET /syntaxes
@@ -60,7 +60,7 @@ http://localhost:8000/admin
 
 ### Research
 
-#### Get all research
+#### Get research
 
 ```http
   GET /research
@@ -68,14 +68,31 @@ http://localhost:8000/admin
 
 ### IGallery
 
-#### Get all IGallery
+#### Get IGalleries
 
 ```http
   GET /igalleries
 ```
 
-#### Get all IGallery Subjects
+#### Get IGallery Subjects
 
 ```http
   GET /igalleries/subjects
 ```
+### Division and Staff
+
+#### Get divisions
+
+```http
+  GET /divisions
+```
+
+#### Get komnews by slug
+
+```http
+  GET /divisions/{slug}
+```
+
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `slug`      | `string` | **Required**. Slug of division to fetch with it staff |

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DivisionController;
 use App\Http\Controllers\IGalleryController;
 use App\Http\Controllers\IGallerySubjectController;
 use App\Http\Controllers\KomnewsController;
@@ -11,6 +12,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
+
+//division
+Route::get("/divisions", [DivisionController::class, 'index']);
+Route::get("/divisions/{slug}", [DivisionController::class, 'showStaffPerDivision']);
 
 // iGallery
 Route::get("/igalleries", [IGalleryController::class, 'index']);

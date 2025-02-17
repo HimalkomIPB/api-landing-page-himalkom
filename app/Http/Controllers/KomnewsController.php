@@ -30,7 +30,7 @@ class KomnewsController extends Controller
             $komnews = Komnews::where("slug", $slug)->firstOrFail();
             return response()->json(['komnews' => $komnews]);
         } catch (ModelNotFoundException) {
-            return response()->json(['error' => 'Komnews not found'], 404);
+            return response()->json(['errors' => 'Komnews not found'], 404);
         }
     }
 }
