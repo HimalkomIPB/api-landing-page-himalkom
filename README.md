@@ -93,7 +93,7 @@ http://localhost:8000/admin
   GET /divisions
 ```
 
-#### Get komnews by slug
+#### Get division with its staff(s)
 
 ```http
   GET /divisions/{slug}
