@@ -4,6 +4,7 @@ use App\Http\Controllers\DivisionController;
 use App\Http\Controllers\IGalleryController;
 use App\Http\Controllers\IGallerySubjectController;
 use App\Http\Controllers\KomnewsController;
+use App\Http\Controllers\MegaprokerController;
 use App\Http\Controllers\ResearchController;
 use App\Http\Controllers\SyntaxController;
 use Illuminate\Http\Request;
@@ -24,6 +25,9 @@ Route::get("/igalleries/subjects", [IGallerySubjectController::class, 'index']);
 // Komnews
 Route::get('/komnews', [KomnewsController::class, 'index']);
 Route::get('/komnews/{slug}', [KomnewsController::class, 'showBySlug']);
+
+// Megaproker
+Route::get('/megaprokers', [MegaprokerController::class, 'index']);
 
 // Research
 Route::get("/research", [ResearchController::class, "index"]);
