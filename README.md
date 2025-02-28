@@ -102,3 +102,9 @@ http://localhost:8000/admin
 | Parameter | Type     | Description                       |
 | :-------- | :------- | :-------------------------------- |
 | `slug`      | `string` | **Required**. Slug of division to fetch with it staff |
+
+#### Get megaprokers with its image(s)
+
+```http
+  GET /megaprokres
+```
