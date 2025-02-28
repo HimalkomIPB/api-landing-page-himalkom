@@ -66,7 +66,9 @@ class MegaprokerResource extends Resource
                     ->color("primary")
                     ->openUrlInNewTab()
                     ->wrap(),
-                ImageColumn::make('images.url')->circular()
+                ImageColumn::make('images.url')->circular(),
+                TextColumn::make('created_at')->dateTime()->sortable(),
+                TextColumn::make('updated_at')->label('last updated')->since()->sortable(),
 
             ])
             ->filters([
