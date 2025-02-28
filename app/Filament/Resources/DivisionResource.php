@@ -41,7 +41,7 @@ class DivisionResource extends Resource
                 TextColumn::make("name"),
                 TextColumn::make("abbreviation"),
                 TextColumn::make("slug")->label("slug (auto generated)"),
-                TextColumn::make("description")->wrap(),
+                TextColumn::make("description")->limit(100)->wrap(),
                 TextColumn::make('created_at')->dateTime()->sortable(),
                 TextColumn::make('updated_at')->label('last updated')->since()->sortable(),
             ])
