@@ -10,8 +10,8 @@ class IGallerySubject extends Model
         "name"
     ];
 
-    public function IGalleries()
+    public function iGalleries()
     {
-        return $this->hasMany(IGallery::class);
+        return $this->hasMany(IGallery::class, 'subject_id');
     }
 }
