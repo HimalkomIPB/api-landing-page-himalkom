@@ -50,6 +50,7 @@ class KomnewsResource extends Resource
                                 ->relationship(titleAttribute: "name")
                                 ->searchable()
                                 ->preload()
+                                ->required()
                         ]),
                     RichEditor::make('content')
                         ->label("Content")

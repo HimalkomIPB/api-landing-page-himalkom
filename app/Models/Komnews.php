@@ -22,7 +22,7 @@ class Komnews extends Model
 
     public function categories()
     {
-        return $this->belongsToMany(KomnewsCategory::class, 'komnews_category_relations')->select(["name", "slug"]);
+        return $this->belongsToMany(KomnewsCategory::class, 'komnews_category_relations');
     }
 
     protected static function booted()
