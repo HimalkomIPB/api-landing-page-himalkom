@@ -11,7 +11,6 @@ class Community extends Model
 {
     protected $guarded = ['id'];
 
-    protected $with = ['images'];
     public function images(): HasMany
     {
         return $this->hasMany(CommunityImage::class);

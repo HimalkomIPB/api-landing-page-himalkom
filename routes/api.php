@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommunityController;
 use App\Http\Controllers\DivisionController;
 use App\Http\Controllers\IGalleryController;
 use App\Http\Controllers\IGallerySubjectController;
@@ -13,6 +14,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
+
+//community
+Route::get('/communities', [CommunityController::class, 'index']);
+Route::get('/communities/{slug}', [CommunityController::class, 'showBySlug']);
 
 //division
 Route::get("/divisions", [DivisionController::class, 'index']);

@@ -4,62 +4,29 @@ namespace App\Http\Controllers;
 
 use App\Models\Community;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class CommunityController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): JsonResponse
     {
-        //
+        $communities = Community::select('name', 'slug', 'logo')->get();
+        return response()->json([
+            'communities' => $communities
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function showBySlug(String $slug): JsonResponse
     {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Community $community)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Community $community)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Community $community)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Community $community)
-    {
-        //
+        try {
+            $community = Community::with(['images'])->where("slug", $slug)->firstOrFail();
+            return response()->json(['community' => $community]);
+        } catch (ModelNotFoundException) {
+            return response()->json(['errors' => 'Community not found'], 404);
+        }
     }
 }
