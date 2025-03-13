@@ -21,7 +21,7 @@ Route::get('/communities/{slug}', [CommunityController::class, 'showBySlug']);
 
 //division
 Route::get("/divisions", [DivisionController::class, 'index']);
-Route::get("/divisions/{slug}", [DivisionController::class, 'showStaffPerDivision']);
+Route::get("/divisions/{slug}", [DivisionController::class, 'show']);
 
 // iGallery
 Route::get("/igalleries", [IGalleryController::class, 'index']);

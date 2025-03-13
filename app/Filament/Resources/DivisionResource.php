@@ -6,6 +6,7 @@ use App\Filament\Resources\DivisionResource\Pages;
 use App\Filament\Resources\DivisionResource\RelationManagers;
 use App\Models\Division;
 use Filament\Forms;
+use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Wizard;
@@ -30,7 +31,16 @@ class DivisionResource extends Resource
             ->schema([
                 TextInput::make("name")->placeholder("nama lengkap divisi")->required(),
                 TextInput::make("abbreviation")->placeholder("singkatan divisi, ex: BPH, ACE")->required(),
-                Textarea::make("description")->placeholder("deskripsi divisi")->required()
+                Textarea::make("description")->placeholder("deskripsi divisi")->required(),
+                Repeater::make("workPrograms")
+                    ->label("Program Kerja")
+                    ->relationship("workPrograms")
+                    ->schema([
+                        TextInput::make('name')->placeholder("Ex. Upgrading Himalkom"),
+                        Textarea::make('description')->placeholder("Ex. Proker ini adalah.....")
+                    ])
+                    ->collapsible()
+                    ->columnSpanFull(),
             ]);
     }
 

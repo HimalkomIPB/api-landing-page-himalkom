@@ -17,10 +17,10 @@ class DivisionController extends Controller
         ]);
     }
 
-    public function showStaffPerDivision(String $slug): JsonResponse
+    public function show(String $slug): JsonResponse
     {
         try {
-            $division = Division::with("staff")->where("slug", $slug)->firstOrFail();
+            $division = Division::with(["staff", "workPrograms"])->where("slug", $slug)->firstOrFail();
             return response()->json(['division' => $division]);
         } catch (ModelNotFoundException) {
             return response()->json(['errors' => 'division not found'], 404);
