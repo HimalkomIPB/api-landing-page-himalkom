@@ -17,6 +17,11 @@ class Division extends Model
         return  $this->hasMany(Staff::class);
     }
 
+    public function workPrograms(): HasMany
+    {
+        return $this->hasMany(DivisionWorkProgram::class);
+    }
+
     protected static function booted()
     {
         static::creating(function ($division) {
