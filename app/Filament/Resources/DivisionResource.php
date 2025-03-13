@@ -34,6 +34,7 @@ class DivisionResource extends Resource
                 Textarea::make("description")->placeholder("deskripsi divisi")->required(),
                 Repeater::make("workPrograms")
                     ->label("Program Kerja")
+                    ->relationship("workPrograms")
                     ->schema([
                         TextInput::make('name')->placeholder("Ex. Upgrading Himalkom"),
                         Textarea::make('description')->placeholder("Ex. Proker ini adalah.....")
