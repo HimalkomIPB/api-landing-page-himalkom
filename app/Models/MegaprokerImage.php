@@ -18,7 +18,7 @@ class MegaprokerImage extends Model
     protected static function booted()
     {
         static::deleting(function ($mImage) {
-            Storage::disk('public')->delete($mImage->image);
+            Storage::disk('public')->delete($mImage->url);
         });
 
         static::updating(function ($mImage) {
