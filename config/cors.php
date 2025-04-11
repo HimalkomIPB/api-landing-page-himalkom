@@ -19,7 +19,9 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['*'],
+    'allowed_origins' => env('APP_ENV') === 'production'
+        ? [env('ALLOWED_ORIGIN')]
+        : ['*'],
 
     'allowed_origins_patterns' => [],
 
