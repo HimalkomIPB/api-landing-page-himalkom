@@ -39,6 +39,21 @@ class Komnews extends Model
 
         static::deleting(function ($news) {
             Storage::disk('public')->delete($news->image);
+
+            $doc = new \DOMDocument();
+            libxml_use_internal_errors(true);
+            $doc->loadHTML($news->content);
+
+            $images = $doc->getElementsByTagName('img');
+
+            foreach ($images as $img) {
+                $src = $img->getAttribute('src');
+
+                $relativePath = str_replace(url('/storage'), '', $src);
+
+                Storage::disk('public')->delete($relativePath);
+            }
+            libxml_clear_errors();
         });
 
         static::updating(function ($news) {
