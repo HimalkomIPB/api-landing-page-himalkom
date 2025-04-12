@@ -19,7 +19,7 @@ class RestrictToFrontendDomain
             return $next($request);
         }
 
-        $allowedDomain = env('ALLOWED_ORIGIN');
+        $allowedDomain = config('app.allowed_origin');
         $allowedDomain = parse_url($allowedDomain, PHP_URL_HOST);
 
         $origin = $request->headers->get('Origin');
