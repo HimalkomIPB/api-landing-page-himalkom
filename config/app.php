@@ -1,7 +1,7 @@
 <?php
 
 return [
-
+    'allowed_origin' => env('ALLOWED_ORIGIN', '*'),
     /*
     |--------------------------------------------------------------------------
     | Application Name
