@@ -29,6 +29,13 @@ class IGalleryResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-s-photo';
 
+    public static function canViewAny(): bool
+    {
+        return in_array(auth()->user()?->email, [
+            config('admin.admin_email'),
+        ]);
+    }
+
     public static function form(Form $form): Form
     {
         return $form

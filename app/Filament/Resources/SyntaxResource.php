@@ -25,6 +25,13 @@ class SyntaxResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-document';
 
+    public static function canViewAny(): bool
+    {
+        return in_array(auth()->user()?->email, [
+            config('admin.admin_email'),
+        ]);
+    }
+
     public static function form(Form $form): Form
     {
         return $form
