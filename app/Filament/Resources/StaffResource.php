@@ -21,6 +21,7 @@ use Filament\Tables\Columns\BooleanColumn;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 
 class StaffResource extends Resource
 {
@@ -71,7 +72,11 @@ class StaffResource extends Resource
                 TextColumn::make('updated_at')->label('last updated')->since()->sortable(),
             ])
             ->filters([
-                //
+                SelectFilter::make('division_id')
+                    ->label('Filter by Division')
+                    ->relationship('division', 'name')
+                    ->preload()
+                    ->searchable()
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

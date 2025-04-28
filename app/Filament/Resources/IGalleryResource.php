@@ -7,21 +7,22 @@ use Filament\Tables;
 use App\Models\IGallery;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
+use App\Models\IGallerySubject;
+use App\Models\IGallery_subject;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Textarea;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Forms\Components\FileUpload;
+use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\IGalleryResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\IGalleryResource\RelationManagers;
-use App\Models\IGallery_subject;
-use App\Models\IGallerySubject;
-use Filament\Tables\Columns\ImageColumn;
-use Filament\Tables\Columns\TextColumn;
 
 class IGalleryResource extends Resource
 {
@@ -88,7 +89,11 @@ class IGalleryResource extends Resource
                 TextColumn::make("link")->url(fn(IGallery $iGallery) => $iGallery->link)->color("primary")->openUrlInNewTab()
             ])
             ->filters([
-                //
+                SelectFilter::make('subject_id')
+                    ->label('Filter by Subject')
+                    ->relationship('subject', 'name')
+                    ->preload()
+                    ->searchable()
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
