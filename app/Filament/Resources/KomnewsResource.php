@@ -85,6 +85,7 @@ class KomnewsResource extends Resource
             ->filters([
                 //
             ])
+            ->persistFiltersInSession() 
             ->actions([
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make()

@@ -78,6 +78,7 @@ class StaffResource extends Resource
                     ->preload()
                     ->searchable()
             ])
+            ->persistFiltersInSession() 
             ->actions([
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make()
