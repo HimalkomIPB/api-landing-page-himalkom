@@ -15,8 +15,12 @@ class KomnewsController extends Controller
     {
         $today = Carbon::today(config("app.timezone"));
         $categories = KomnewsCategory::all(["name", "slug"]);
-        $komnews = Komnews::whereDate('created_at', '!=', $today)->get();
-        $todayHeadlines = Komnews::whereDate('created_at', $today)->get();
+        $komnews = Komnews::whereDate('created_at', '!=', $today)
+            ->orderBy('created_at', 'desc')
+            ->get();
+        $todayHeadlines = Komnews::whereDate('created_at', $today)
+            ->orderBy('created_at', 'desc')
+            ->get();
         return response()->json([
             'categories' => $categories,
             'komnews' => $komnews,
