@@ -10,7 +10,7 @@ class SyntaxController extends Controller
 {
     public function index(): JsonResponse
     {
-        $syntaxes = Syntax::all();
+        $syntaxes = Syntax::orderBy('created_at', 'desc')->get();
         return response()->json([
             "syntaxes" => $syntaxes
         ]);
