@@ -29,8 +29,8 @@ class Community extends Model
             }
         });
 
-        static::deleting(function ($megaproker) {
-            Storage::disk('public')->delete($megaproker->image);
+        static::deleting(function ($community) {
+            Storage::disk('public')->delete($community->logo);
         });
 
         static::updating(function ($community) {
