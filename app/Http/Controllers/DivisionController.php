@@ -11,7 +11,8 @@ class DivisionController extends Controller
 {
     public function index(): JsonResponse
     {
-        $divisions = Division::all();
+        $divisions = Division::orderBy('name', 'asc')->get();
+
         return response()->json([
             "divisions" => $divisions
         ]);
