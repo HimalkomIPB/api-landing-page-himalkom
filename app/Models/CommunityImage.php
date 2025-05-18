@@ -17,7 +17,7 @@ class CommunityImage extends Model
     protected static function booted()
     {
         static::deleting(function ($cImage) {
-            Storage::disk('public')->delete($cImage->image);
+            Storage::disk('public')->delete($cImage->url);
         });
 
         static::updating(function ($cImage) {
