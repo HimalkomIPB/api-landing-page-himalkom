@@ -1,0 +1,285 @@
+{
+	"info": {
+		"_postman_id": "a93f54c9-7aea-4c45-9204-15f90d42a457",
+		"name": "API LANDING PAGE HIMALKOM",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28617671"
+	},
+	"item": [
+		{
+			"name": "Get Komnews",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://apihimalkomstaging.akucuciin.my.id/komnews",
+					"protocol": "https",
+					"host": [
+						"apihimalkomstaging",
+						"akucuciin",
+						"my",
+						"id"
+					],
+					"path": [
+						"komnews"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Komnews by Slug",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/komnews/himalkom-x-hmif-1737635607-4b8a4743bb1f80e7",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"komnews",
+						"himalkom-x-hmif-1737635607-4b8a4743bb1f80e7"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Syntaxes",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Origin",
+						"value": "https://himalkomz-ipb.com",
+						"type": "text"
+					},
+					{
+						"key": "Referer",
+						"value": "https://himalkomz-ipb.com",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:8000/syntaxes",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"syntaxes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Research",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/research",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"research"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get IGalleries",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/igalleries",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"igalleries"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get IGalleries Subjects",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/igalleries/subjects",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"igalleries",
+						"subjects"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Divisions",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/divisions",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"divisions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Division and its",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/divisions/badan-pengawas-harianz",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"divisions",
+						"badan-pengawas-harianz"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Megaprokers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://apihimalkomstaging.akucuciin.my.id/megaprokers",
+					"protocol": "https",
+					"host": [
+						"apihimalkomstaging",
+						"akucuciin",
+						"my",
+						"id"
+					],
+					"path": [
+						"megaprokers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Communities",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/communities",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"communities"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Community by slug",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://apihimalkomstaging.akucuciin.my.id/communities/agriux",
+					"protocol": "https",
+					"host": [
+						"apihimalkomstaging",
+						"akucuciin",
+						"my",
+						"id"
+					],
+					"path": [
+						"communities",
+						"agriux"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Community Portoflio by com slug",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/communities/iwdc/portofolio",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"communities",
+						"iwdc",
+						"portofolio"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
