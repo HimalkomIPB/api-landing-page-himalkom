@@ -16,9 +16,11 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::middleware([RestrictToFrontendDomain::class])->group(function () { //community
+Route::middleware([RestrictToFrontendDomain::class])->group(function () {
+    //community
     Route::get('/communities', [CommunityController::class, 'index']);
     Route::get('/communities/{slug}', [CommunityController::class, 'showBySlug']);
+    Route::get('/communities/{slug}/portofolio', [CommunityController::class, 'indexPortofolio']);
 
     //division
     Route::get("/divisions", [DivisionController::class, 'index']);

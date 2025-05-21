@@ -16,6 +16,11 @@ class Community extends Model
         return $this->hasMany(CommunityImage::class);
     }
 
+    public function portofolios(): HasMany
+    {
+        return $this->hasMany(CommunityPortofolio::class);
+    }
+
     protected $casts = [
         'purposes' => 'array',
         'achievements' => 'array'
