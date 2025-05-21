@@ -11,6 +11,7 @@ use App\Models\IGallerySubject;
 use App\Models\IGallery_subject;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\Grid;
+use Illuminate\Support\Facades\Auth;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Textarea;
@@ -32,7 +33,7 @@ class IGalleryResource extends Resource
 
     public static function canViewAny(): bool
     {
-        return in_array(auth()->user()?->email, [
+        return in_array(Auth::user()?->email, [
             config('admin.admin_email'),
         ]);
     }

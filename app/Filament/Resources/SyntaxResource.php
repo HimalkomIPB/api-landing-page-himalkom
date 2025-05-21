@@ -9,15 +9,16 @@ use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\Grid;
+use Illuminate\Support\Facades\Auth;
 use Filament\Forms\Components\Section;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Forms\Components\FileUpload;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\SyntaxResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\SyntaxResource\RelationManagers;
-use Filament\Tables\Columns\ImageColumn;
-use Filament\Tables\Columns\TextColumn;
 
 class SyntaxResource extends Resource
 {
@@ -27,7 +28,7 @@ class SyntaxResource extends Resource
 
     public static function canViewAny(): bool
     {
-        return in_array(auth()->user()?->email, [
+        return in_array(Auth::user()?->email, [
             config('admin.admin_email'),
         ]);
     }
@@ -74,7 +75,7 @@ class SyntaxResource extends Resource
             ->filters([
                 //
             ])
-            ->persistFiltersInSession() 
+            ->persistFiltersInSession()
             ->actions([
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make()

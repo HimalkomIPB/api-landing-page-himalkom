@@ -2,24 +2,25 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\KomnewsResource\Pages;
-use App\Filament\Resources\KomnewsResource\RelationManagers;
-use App\Models\Komnews;
 use Filament\Forms;
-use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Grid;
-use Filament\Forms\Components\RichEditor;
-use Filament\Forms\Components\Section;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
-use Filament\Tables\Columns\ImageColumn;
-use Filament\Tables\Columns\TextColumn;
+use App\Models\Komnews;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Filament\Resources\Resource;
+use Filament\Forms\Components\Grid;
+use Illuminate\Support\Facades\Auth;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Section;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Components\TextInput;
+use Filament\Tables\Columns\ImageColumn;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\RichEditor;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\KomnewsResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\KomnewsResource\RelationManagers;
 
 class KomnewsResource extends Resource
 {
@@ -29,7 +30,7 @@ class KomnewsResource extends Resource
 
     public static function canViewAny(): bool
     {
-        return in_array(auth()->user()?->email, [
+        return in_array(Auth::user()?->email, [
             config('admin.admin_email'),
         ]);
     }

@@ -9,6 +9,7 @@ use App\Models\Community;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
 use Filament\Resources\Resource;
+use Illuminate\Support\Facades\Auth;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Textarea;
 use Filament\Tables\Columns\TextColumn;
@@ -28,7 +29,7 @@ class CommunityResource extends Resource
 
     public static function canViewAny(): bool
     {
-        return in_array(auth()->user()?->email, [
+        return in_array(Auth::user()?->email, [
             config('admin.admin_email'),
         ]);
     }
@@ -100,7 +101,7 @@ class CommunityResource extends Resource
             ->filters([
                 //
             ])
-            ->persistFiltersInSession() 
+            ->persistFiltersInSession()
             ->actions([
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make()
