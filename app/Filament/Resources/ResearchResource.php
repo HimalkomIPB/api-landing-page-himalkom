@@ -9,6 +9,7 @@ use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\Grid;
+use Illuminate\Support\Facades\Auth;
 use Filament\Forms\Components\Section;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
@@ -27,7 +28,7 @@ class ResearchResource extends Resource
 
     public static function canViewAny(): bool
     {
-        return in_array(auth()->user()?->email, [
+        return in_array(Auth::user()?->email, [
             config('admin.admin_email'),
         ]);
     }

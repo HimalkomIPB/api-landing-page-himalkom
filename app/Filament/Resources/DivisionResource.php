@@ -8,6 +8,7 @@ use App\Models\Division;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
+use Illuminate\Support\Facades\Auth;
 use Filament\Forms\Components\Wizard;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Textarea;
@@ -29,7 +30,7 @@ class DivisionResource extends Resource
 
     public static function canViewAny(): bool
     {
-        return in_array(auth()->user()?->email, [
+        return in_array(Auth::user()?->email, [
             config('admin.admin_email'),
         ]);
     }

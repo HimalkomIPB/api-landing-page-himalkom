@@ -2,22 +2,23 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\MegaprokerResource\Pages;
-use App\Filament\Resources\MegaprokerResource\RelationManagers;
-use App\Models\Megaproker;
 use Filament\Forms;
-use Filament\Forms\Components\FileUpload;
+use Filament\Tables;
+use Filament\Forms\Form;
+use App\Models\Megaproker;
+use Filament\Tables\Table;
+use Filament\Resources\Resource;
+use Illuminate\Support\Facades\Auth;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Textarea;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
-use Filament\Tables;
-use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Table;
+use Filament\Forms\Components\TextInput;
+use Filament\Tables\Columns\ImageColumn;
+use Filament\Forms\Components\FileUpload;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\MegaprokerResource\Pages;
+use App\Filament\Resources\MegaprokerResource\RelationManagers;
 
 class MegaprokerResource extends Resource
 {
@@ -27,7 +28,7 @@ class MegaprokerResource extends Resource
 
     public static function canViewAny(): bool
     {
-        return in_array(auth()->user()?->email, [
+        return in_array(Auth::user()?->email, [
             config('admin.admin_email'),
         ]);
     }
@@ -81,7 +82,7 @@ class MegaprokerResource extends Resource
             ->filters([
                 //
             ])
-            ->persistFiltersInSession() 
+            ->persistFiltersInSession()
             ->actions([
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make()

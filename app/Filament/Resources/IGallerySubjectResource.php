@@ -9,12 +9,13 @@ use Filament\Tables\Table;
 use App\Models\IGallerySubject;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\Grid;
+use Illuminate\Support\Facades\Auth;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\IGallerySubjectResource\Pages;
 use App\Filament\Resources\IGallerySubjectResource\RelationManagers;
-use Filament\Tables\Columns\TextColumn;
 
 class IGallerySubjectResource extends Resource
 {
@@ -24,7 +25,7 @@ class IGallerySubjectResource extends Resource
 
     public static function canViewAny(): bool
     {
-        return in_array(auth()->user()?->email, [
+        return in_array(Auth::user()?->email, [
             config('admin.admin_email'),
         ]);
     }
@@ -51,7 +52,7 @@ class IGallerySubjectResource extends Resource
             ->filters([
                 //
             ])
-            ->persistFiltersInSession() 
+            ->persistFiltersInSession()
             ->actions([
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make()

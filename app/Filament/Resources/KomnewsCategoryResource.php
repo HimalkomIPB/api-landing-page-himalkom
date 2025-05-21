@@ -9,17 +9,18 @@ use Filament\Tables\Table;
 use App\Models\KomnewsCategory;
 use Filament\Actions\EditAction;
 use Filament\Resources\Resource;
+use Illuminate\Support\Facades\Auth;
+use Filament\Forms\Components\Section;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Tables\Actions\BulkActionGroup;
 use Filament\Tables\Actions\DeleteBulkAction;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\KomnewsCategoryResource\Pages;
 use App\Filament\Resources\KomnewsCategoryResource\RelationManagers;
-use App\Filament\Resources\KomnewsCategoryResource\Pages\ListKomnewsCategories;
 use App\Filament\Resources\KomnewsCategoryResource\Pages\CreateKomnewsCategory;
-use Filament\Forms\Components\Section;
-use Filament\Forms\Components\TextInput;
-use Filament\Tables\Columns\TextColumn;
+use App\Filament\Resources\KomnewsCategoryResource\Pages\ListKomnewsCategories;
 
 class KomnewsCategoryResource extends Resource
 {
@@ -30,7 +31,7 @@ class KomnewsCategoryResource extends Resource
 
     public static function canViewAny(): bool
     {
-        return in_array(auth()->user()?->email, [
+        return in_array(Auth::user()?->email, [
             config('admin.admin_email'),
         ]);
     }
