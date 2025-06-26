@@ -10,7 +10,7 @@ class ResearchController extends Controller
 {
     public function index(): JsonResponse
     {
-        $research = Research::all();
+        $research = Research::orderBy('created_at', 'desc')->get();
         return response()->json([
             "research" => $research
         ]);
