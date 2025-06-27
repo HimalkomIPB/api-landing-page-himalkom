@@ -157,6 +157,11 @@ class JawaraIlkomerzResource extends Resource
         return 'Komunitas Ilkom';
     }
 
+    public static function getNavigationSort(): ?int
+    {
+        return 3;
+    }
+
     public static function getPages(): array
     {
         return [
