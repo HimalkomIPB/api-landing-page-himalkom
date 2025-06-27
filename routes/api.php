@@ -4,6 +4,7 @@ use App\Http\Controllers\CommunityController;
 use App\Http\Controllers\DivisionController;
 use App\Http\Controllers\IGalleryController;
 use App\Http\Controllers\IGallerySubjectController;
+use App\Http\Controllers\JawaraIlkomerzController;
 use App\Http\Controllers\KomnewsController;
 use App\Http\Controllers\MegaprokerController;
 use App\Http\Controllers\ResearchController;
@@ -42,4 +43,7 @@ Route::middleware([RestrictToFrontendDomain::class])->group(function () {
 
     // Syntax
     Route::get("/syntaxes", [SyntaxController::class, "index"]);
+
+    // Jawara Ilkomerz
+    Route::get('/jawara-ilkomerzs', [JawaraIlkomerzController::class, 'index']);
 });
