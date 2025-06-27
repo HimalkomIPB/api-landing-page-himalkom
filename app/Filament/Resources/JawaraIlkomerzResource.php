@@ -69,7 +69,6 @@ class JawaraIlkomerzResource extends Resource
                     ->options(Community::pluck('name', 'id'))
                     ->searchable()
                     ->preload()
-                    ->required()
             ]),
 
             DatePicker::make('start_date')
@@ -113,7 +112,8 @@ class JawaraIlkomerzResource extends Resource
                 TextColumn::make('community.name')
                     ->label('Komunitas')
                     ->searchable()
-                    ->sortable(),
+                    ->sortable()
+                    ->formatStateUsing(fn($state) => $state ?? 'Miscellaneous'),
 
                 TextColumn::make('start_date')
                     ->label('Mulai')
