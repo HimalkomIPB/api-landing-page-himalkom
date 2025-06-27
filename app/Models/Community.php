@@ -21,6 +21,11 @@ class Community extends Model
         return $this->hasMany(CommunityPortofolio::class);
     }
 
+    public function jawaraIlkomerzs(): HasMany
+    {
+        return $this->hasMany(JawaraIlkomerz::class);
+    }
+
     protected $casts = [
         'purposes' => 'array',
         'achievements' => 'array'
