@@ -11,7 +11,12 @@ class JawaraIlkomerzController extends Controller
     {
         $jawaraIlkomerzs = JawaraIlkomerz::with('community')
             ->orderBy('created_at', 'desc')
-            ->get();
+            ->get()
+            ->map(function ($item) {
+                $item->community_name = $item->community->name ?? 'Miscellaneous';
+                return $item;
+            });
+
         return response()->json(['jawaraIlkomerzs' => $jawaraIlkomerzs]);
     }
 }
