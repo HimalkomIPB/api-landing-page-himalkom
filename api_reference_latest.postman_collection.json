@@ -12,14 +12,15 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://apihimalkomstaging.akucuciin.my.id/komnews",
-					"protocol": "https",
+					"raw": "http://127.0.0.1:8000/komnews",
+					"protocol": "http",
 					"host": [
-						"apihimalkomstaging",
-						"akucuciin",
-						"my",
-						"id"
+						"127",
+						"0",
+						"0",
+						"1"
 					],
+					"port": "8000",
 					"path": [
 						"komnews"
 					]
@@ -33,7 +34,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://127.0.0.1:8000/komnews/himalkom-x-hmif-1737635607-4b8a4743bb1f80e7",
+					"raw": "http://127.0.0.1:8000/komnews/sword-art-online-v2-1744355766-bcc860f75310f620",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -44,7 +45,7 @@
 					"port": "8000",
 					"path": [
 						"komnews",
-						"himalkom-x-hmif-1737635607-4b8a4743bb1f80e7"
+						"sword-art-online-v2-1744355766-bcc860f75310f620"
 					]
 				}
 			},
@@ -57,12 +58,12 @@
 				"header": [
 					{
 						"key": "Origin",
-						"value": "https://himalkomz-ipb.com",
+						"value": "https://himzalkom-ipb.com",
 						"type": "text"
 					},
 					{
 						"key": "Referer",
-						"value": "https://himalkomz-ipb.com",
+						"value": "https://himzalkom-ipb.com",
 						"type": "text"
 					}
 				],
@@ -156,15 +157,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://127.0.0.1:8000/divisions",
-					"protocol": "http",
+					"raw": "https://apihimalkomstaging.akucuciin.my.id/divisions",
+					"protocol": "https",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"apihimalkomstaging",
+						"akucuciin",
+						"my",
+						"id"
 					],
-					"port": "8000",
 					"path": [
 						"divisions"
 					]
@@ -178,15 +178,17 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8000/divisions/badan-pengawas-harianz",
-					"protocol": "http",
+					"raw": "https://apihimalkomstaging.akucuciin.my.id/divisions/badan-pengurus-harian",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"apihimalkomstaging",
+						"akucuciin",
+						"my",
+						"id"
 					],
-					"port": "8000",
 					"path": [
 						"divisions",
-						"badan-pengawas-harianz"
+						"badan-pengurus-harian"
 					]
 				}
 			},
@@ -196,15 +198,25 @@
 			"name": "Get Megaprokers",
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Origin",
+						"value": "https://himalkom-ipb.com",
+						"type": "text"
+					},
+					{
+						"key": "Referer",
+						"value": "https://himalkom-ipb.com",
+						"type": "text"
+					}
+				],
 				"url": {
-					"raw": "https://apihimalkomstaging.akucuciin.my.id/megaprokers",
+					"raw": "https://api.himalkom-ipb.com/megaprokers",
 					"protocol": "https",
 					"host": [
-						"apihimalkomstaging",
-						"akucuciin",
-						"my",
-						"id"
+						"api",
+						"himalkom-ipb",
+						"com"
 					],
 					"path": [
 						"megaprokers"
@@ -219,15 +231,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://127.0.0.1:8000/communities",
-					"protocol": "http",
+					"raw": "https://apihimalkomstaging.akucuciin.my.id/communities",
+					"protocol": "https",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"apihimalkomstaging",
+						"akucuciin",
+						"my",
+						"id"
 					],
-					"port": "8000",
 					"path": [
 						"communities"
 					]
@@ -276,6 +287,28 @@
 						"communities",
 						"iwdc",
 						"portofolio"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Jawara Ilkomerz",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/jawara-ilkomerzs",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"jawara-ilkomerzs"
 					]
 				}
 			},
