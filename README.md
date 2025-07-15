@@ -36,6 +36,9 @@ http://localhost:8000/admin
 ```
 <br>
 
+## What to improve
+### Implementing pagination (backend and frontend) 
+
 ## API Reference
 
 See api_reference_latest.postman_collection.json
