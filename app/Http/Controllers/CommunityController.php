@@ -15,7 +15,7 @@ class CommunityController extends Controller
      */
     public function index(): JsonResponse
     {
-        $communities = Community::select('name', 'slug', 'logo')->get();
+        $communities = Community::select('name', 'slug', 'logo', 'description')->get();
         return response()->json([
             'communities' => $communities
         ]);
