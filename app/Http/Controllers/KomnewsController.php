@@ -32,6 +32,7 @@ class KomnewsController extends Controller
     public function indexHome(): JsonResponse
     {
         $today = Carbon::today(config("app.timezone"));
+        $categories = KomnewsCategory::all(["name", "slug"]);
         $komnews = Komnews::whereDate('created_at', '!=', $today)
             ->orderBy('created_at', 'desc')
             ->take(5)
@@ -41,6 +42,7 @@ class KomnewsController extends Controller
             ->take(5)
             ->get();
         return response()->json([
+            'categories' => $categories,
             'komnews' => $komnews,
             'todayHeadlines' => $todayHeadlines
         ]);
