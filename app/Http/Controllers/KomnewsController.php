@@ -28,6 +28,24 @@ class KomnewsController extends Controller
         ]);
     }
 
+    // For homepage, limit to 5 komnews
+    public function indexHome(): JsonResponse
+    {
+        $today = Carbon::today(config("app.timezone"));
+        $komnews = Komnews::whereDate('created_at', '!=', $today)
+            ->orderBy('created_at', 'desc')
+            ->take(5)
+            ->get();
+        $todayHeadlines = Komnews::whereDate('created_at', $today)
+            ->orderBy('created_at', 'desc')
+            ->take(5)
+            ->get();
+        return response()->json([
+            'komnews' => $komnews,
+            'todayHeadlines' => $todayHeadlines
+        ]);
+    }
+
     public function showBySlug(String $slug): JsonResponse
     {
         try {

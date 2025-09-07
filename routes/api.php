@@ -33,6 +33,7 @@ Route::middleware([RestrictToFrontendDomain::class])->group(function () {
 
     // Komnews
     Route::get('/komnews', [KomnewsController::class, 'index']);
+    Route::get('/komnews/home', [KomnewsController::class, 'indexHome']);
     Route::get('/komnews/{slug}', [KomnewsController::class, 'showBySlug']);
 
     // Megaproker
