@@ -33,6 +33,7 @@ class CommunityPortofolioResource extends Resource
     {
         return in_array(Auth::user()?->email, [
             config('admin.admin_email'),
+            config('admin.admin_education_email')
         ]);
     }
 
