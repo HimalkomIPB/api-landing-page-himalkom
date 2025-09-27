@@ -71,7 +71,9 @@ class CommunityPortofolioResource extends Resource
                     ->sortable()
                     ->wrap(),
                 TextColumn::make("community.name")->label("Komunitas")->sortable(),
-                TextColumn::make("link")->url(fn(CommunityPortofolio $model) => $model->link)->color("primary")->openUrlInNewTab()
+                TextColumn::make("link")->url(fn(CommunityPortofolio $model) => $model->link)->color("primary")->openUrlInNewTab(),
+                TextColumn::make('created_at')->dateTime()->sortable(),
+                TextColumn::make('updated_at')->label('last updated')->since()->sortable(),
             ])
             ->filters([
                 SelectFilter::make('community_id')
