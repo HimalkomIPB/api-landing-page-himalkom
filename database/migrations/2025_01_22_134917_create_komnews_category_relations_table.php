@@ -12,12 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('komnews_category_relations', function (Blueprint $table) {
-            $table->unsignedBigInteger("komnews_id");
-            $table->unsignedBigInteger("komnews_category_id");
-            $table->foreign("komnews_id")->references("id")->on("komnews")->onDelete("cascade");
-            $table->foreign("komnews_category_id")->references("id")->on("komnews_categories")->onDelete("cascade");
+            $table->unsignedBigInteger('komnews_id');
+            $table->unsignedBigInteger('komnews_category_id');
+            $table->foreign('komnews_id')->references('id')->on('komnews')->onDelete('cascade');
+            $table->foreign('komnews_category_id')->references('id')->on('komnews_categories')->onDelete('cascade');
             $table->timestamps();
-            $table->primary(["komnews_id", "komnews_category_id"]);
+            $table->primary(['komnews_id', 'komnews_category_id']);
         });
     }
 

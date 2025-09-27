@@ -2,24 +2,20 @@
 
 namespace App\Filament\Resources;
 
-use Filament\Forms;
-use Filament\Tables;
-use Filament\Forms\Form;
+use App\Filament\Resources\CommunityResource\Pages;
 use App\Models\Community;
-use Filament\Tables\Table;
-use Illuminate\Support\Str;
-use Filament\Resources\Resource;
-use Illuminate\Support\Facades\Auth;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Textarea;
-use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Form;
+use Filament\Resources\Resource;
+use Filament\Tables;
 use Filament\Tables\Columns\ImageColumn;
-use Filament\Forms\Components\FileUpload;
-use Illuminate\Database\Eloquent\Builder;
-use App\Filament\Resources\CommunityResource\Pages;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\CommunityResource\RelationManagers;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Table;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class CommunityResource extends Resource
 {
@@ -31,7 +27,7 @@ class CommunityResource extends Resource
     {
         return in_array(Auth::user()?->email, [
             config('admin.admin_email'),
-            config('admin.admin_education_email')
+            config('admin.admin_education_email'),
         ]);
     }
 
@@ -40,13 +36,13 @@ class CommunityResource extends Resource
         return $form
             ->schema([
                 TextInput::make('name')->placeholder('Ex. AgriUX')->required()->columns(1),
-                FileUpload::make("logo")
+                FileUpload::make('logo')
                     ->image()
-                    ->label("Logo")
-                    ->disk("public")
+                    ->label('Logo')
+                    ->disk('public')
                     ->maxSize(2048)
                     ->required()->columnSpanFull(),
-                Textarea::make('description')->placeholder("Deskripsi komunitas")->required()->columnSpanFull(),
+                Textarea::make('description')->placeholder('Deskripsi komunitas')->required()->columnSpanFull(),
                 TextInput::make('instagram')->placeholder('Ex. agriux')->required()->columns(1),
                 TextInput::make('contact')->placeholder('Ex. John Doe')->required()->columns(1),
                 TextInput::make('contact_whatsapp')->placeholder('Ex. 0812345678')->required()->columns(1),
@@ -69,9 +65,9 @@ class CommunityResource extends Resource
                         FileUpload::make('url')
                             ->label('image')
                             ->image()
-                            ->disk("public")
+                            ->disk('public')
                             ->maxSize(2048)
-                            ->required()
+                            ->required(),
                     ])
                     ->collapsible()
                     ->columnSpanFull(),
@@ -84,14 +80,14 @@ class CommunityResource extends Resource
             ->columns([
                 ImageColumn::make('logo')->circular(),
                 TextColumn::make('name')
-                    ->description(fn(Community $comm): string => Str::limit($comm->description, 100, '...'))
+                    ->description(fn (Community $comm): string => Str::limit($comm->description, 100, '...'))
                     ->wrap(),
                 TextColumn::make('slug'),
-                TextColumn::make('instagram')->url(fn(Community $comm) => 'https://instagram.com/' . $comm->instagram)
-                    ->color("primary")
+                TextColumn::make('instagram')->url(fn (Community $comm) => 'https://instagram.com/'.$comm->instagram)
+                    ->color('primary')
                     ->openUrlInNewTab(),
                 TextColumn::make('contact')
-                    ->description(fn(Community $comm): string => $comm->contact_whatsapp)
+                    ->description(fn (Community $comm): string => $comm->contact_whatsapp)
                     ->wrap()
                     ->limit(50),
                 ImageColumn::make('images.url')
@@ -112,7 +108,7 @@ class CommunityResource extends Resource
             ->persistFiltersInSession()
             ->actions([
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make()
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

@@ -3,7 +3,6 @@
 namespace App\Filament\Resources\MegaprokerResource\Pages;
 
 use App\Filament\Resources\MegaprokerResource;
-use Filament\Actions;
 use Filament\Resources\Pages\CreateRecord;
 
 class CreateMegaproker extends CreateRecord

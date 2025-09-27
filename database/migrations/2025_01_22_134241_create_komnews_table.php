@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('komnews', function (Blueprint $table) {
             $table->id();
-            $table->string("title");
-            $table->string("slug");
-            $table->string("content");
-            $table->string("excerp");
-            $table->string("image");
+            $table->string('title');
+            $table->string('slug');
+            $table->string('content');
+            $table->string('excerp');
+            $table->string('image');
             $table->timestamps();
         });
     }

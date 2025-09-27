@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('staff', function (Blueprint $table) {
             $table->id();
-            $table->string("name");
-            $table->boolean("isKetua");
-            $table->string("jabatan");
-            $table->string("image");
-            $table->foreignId("division_id")->constrained()->onDelete("cascade");
+            $table->string('name');
+            $table->boolean('isKetua');
+            $table->string('jabatan');
+            $table->string('image');
+            $table->foreignId('division_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -3,7 +3,6 @@
 namespace App\Filament\Resources\KomnewsResource\Pages;
 
 use App\Filament\Resources\KomnewsResource;
-use Filament\Actions;
 use Filament\Resources\Pages\CreateRecord;
 
 class CreateKomnews extends CreateRecord

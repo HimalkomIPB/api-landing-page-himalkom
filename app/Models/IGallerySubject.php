@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class IGallerySubject extends Model
 {
     protected $fillable = [
-        "name"
+        'name',
     ];
 
     public function iGalleries()

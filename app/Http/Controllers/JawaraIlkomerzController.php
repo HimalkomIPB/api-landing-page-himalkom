@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
-use Illuminate\Http\Request;
 use App\Models\JawaraIlkomerz;
+use Carbon\Carbon;
 
 class JawaraIlkomerzController extends Controller
 {

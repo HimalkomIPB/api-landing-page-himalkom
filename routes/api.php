@@ -18,18 +18,18 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::middleware([RestrictToFrontendDomain::class])->group(function () {
-    //community
+    // community
     Route::get('/communities', [CommunityController::class, 'index']);
     Route::get('/communities/{slug}', [CommunityController::class, 'showBySlug']);
     Route::get('/communities/{slug}/portofolio', [CommunityController::class, 'indexPortofolio']);
 
-    //division
-    Route::get("/divisions", [DivisionController::class, 'index']);
-    Route::get("/divisions/{slug}", [DivisionController::class, 'show']);
+    // division
+    Route::get('/divisions', [DivisionController::class, 'index']);
+    Route::get('/divisions/{slug}', [DivisionController::class, 'show']);
 
     // iGallery
-    Route::get("/igalleries", [IGalleryController::class, 'index']);
-    Route::get("/igalleries/subjects", [IGallerySubjectController::class, 'index']);
+    Route::get('/igalleries', [IGalleryController::class, 'index']);
+    Route::get('/igalleries/subjects', [IGallerySubjectController::class, 'index']);
 
     // Komnews
     Route::get('/komnews', [KomnewsController::class, 'index']);
@@ -40,10 +40,10 @@ Route::middleware([RestrictToFrontendDomain::class])->group(function () {
     Route::get('/megaprokers', [MegaprokerController::class, 'index']);
 
     // Research
-    Route::get("/research", [ResearchController::class, "index"]);
+    Route::get('/research', [ResearchController::class, 'index']);
 
     // Syntax
-    Route::get("/syntaxes", [SyntaxController::class, "index"]);
+    Route::get('/syntaxes', [SyntaxController::class, 'index']);
 
     // Jawara Ilkomerz
     Route::get('/jawara-ilkomerzs', [JawaraIlkomerzController::class, 'index']);

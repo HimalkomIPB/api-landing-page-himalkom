@@ -24,7 +24,7 @@ class AdminPanelProvider extends PanelProvider
     {
         return $panel
             ->default()
-            ->brandLogo(fn() => view("brand"))
+            ->brandLogo(fn () => view('brand'))
             ->id('admin')
             ->path('admin')
             ->login()

@@ -2,20 +2,20 @@
 
 namespace App\Models;
 
-use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class Division extends Model
 {
     protected $guarded = [
-        "id"
+        'id',
     ];
 
     public function staff(): HasMany
     {
-        return  $this->hasMany(Staff::class);
+        return $this->hasMany(Staff::class);
     }
 
     public function workPrograms(): HasMany

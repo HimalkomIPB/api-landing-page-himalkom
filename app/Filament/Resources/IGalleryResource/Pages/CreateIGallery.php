@@ -3,7 +3,6 @@
 namespace App\Filament\Resources\IGalleryResource\Pages;
 
 use App\Filament\Resources\IGalleryResource;
-use Filament\Actions;
 use Filament\Resources\Pages\CreateRecord;
 
 class CreateIGallery extends CreateRecord

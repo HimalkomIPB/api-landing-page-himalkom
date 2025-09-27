@@ -2,17 +2,16 @@
 
 namespace App\Models;
 
-use App\Models\MegaprokerImage;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Storage;
 
 class Megaproker extends Model
 {
     protected $guarded = ['id'];
 
-
     protected $with = ['images'];
+
     public function images(): HasMany
     {
         return $this->hasMany(MegaprokerImage::class);

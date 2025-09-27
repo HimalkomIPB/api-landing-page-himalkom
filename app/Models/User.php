@@ -20,7 +20,6 @@ class User extends Authenticatable implements FilamentUser
         return str_ends_with($this->email, '@himalkom.com') && $this->hasVerifiedEmail();
     }
 
-
     /**
      * The attributes that are mass assignable.
      *

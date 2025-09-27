@@ -10,7 +10,8 @@ class CommunityImage extends Model
 {
     protected $guarded = ['id'];
 
-    public function community(): BelongsTo {
+    public function community(): BelongsTo
+    {
         return $this->belongsTo(Community::class);
     }
 

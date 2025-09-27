@@ -4,9 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Community;
 use App\Models\CommunityPortofolio;
-use Illuminate\Http\Request;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\JsonResponse;
 
 class CommunityController extends Controller
 {
@@ -16,15 +15,17 @@ class CommunityController extends Controller
     public function index(): JsonResponse
     {
         $communities = Community::select('name', 'slug', 'logo', 'description')->get();
+
         return response()->json([
-            'communities' => $communities
+            'communities' => $communities,
         ]);
     }
 
-    public function showBySlug(String $slug): JsonResponse
+    public function showBySlug(string $slug): JsonResponse
     {
         try {
-            $community = Community::with(['images'])->where("slug", $slug)->firstOrFail();
+            $community = Community::with(['images'])->where('slug', $slug)->firstOrFail();
+
             return response()->json(['community' => $community]);
         } catch (ModelNotFoundException) {
             return response()->json(['errors' => 'Community not found'], 404);

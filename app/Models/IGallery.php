@@ -8,16 +8,16 @@ use Illuminate\Support\Facades\Storage;
 class IGallery extends Model
 {
     protected $fillable = [
-        "name",
-        "description",
-        "contributor",
-        "angkatan",
-        "image",
-        "subject_id",
-        "link"
+        'name',
+        'description',
+        'contributor',
+        'angkatan',
+        'image',
+        'subject_id',
+        'link',
     ];
 
-    protected $with = ["subject"];
+    protected $with = ['subject'];
 
     public function subject()
     {

@@ -2,20 +2,16 @@
 
 namespace App\Filament\Resources;
 
-use Filament\Forms;
-use Filament\Tables;
-use Filament\Forms\Form;
-use Filament\Tables\Table;
-use App\Models\IGallerySubject;
-use Filament\Resources\Resource;
-use Filament\Forms\Components\Grid;
-use Illuminate\Support\Facades\Auth;
-use Filament\Tables\Columns\TextColumn;
-use Filament\Forms\Components\TextInput;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\IGallerySubjectResource\Pages;
-use App\Filament\Resources\IGallerySubjectResource\RelationManagers;
+use App\Models\IGallerySubject;
+use Filament\Forms\Components\Grid;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Form;
+use Filament\Resources\Resource;
+use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Table;
+use Illuminate\Support\Facades\Auth;
 
 class IGallerySubjectResource extends Resource
 {
@@ -36,7 +32,7 @@ class IGallerySubjectResource extends Resource
             ->schema([
                 Grid::make(2)
                     ->schema([
-                        TextInput::make("name")->placeholder("Ex: Basis Data, Analisis Sistem")->required(),
+                        TextInput::make('name')->placeholder('Ex: Basis Data, Analisis Sistem')->required(),
                     ]),
             ]);
     }
@@ -45,7 +41,7 @@ class IGallerySubjectResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make("name")->sortable(),
+                TextColumn::make('name')->sortable(),
                 TextColumn::make('created_at')->dateTime()->sortable(),
                 TextColumn::make('updated_at')->label('last updated')->since()->sortable(),
             ])
@@ -55,7 +51,7 @@ class IGallerySubjectResource extends Resource
             ->persistFiltersInSession()
             ->actions([
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make()
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

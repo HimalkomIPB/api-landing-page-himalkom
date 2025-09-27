@@ -2,25 +2,21 @@
 
 namespace App\Filament\Resources;
 
-use Filament\Forms;
-use Filament\Tables;
-use App\Models\Komnews;
-use Filament\Forms\Form;
-use Filament\Tables\Table;
-use Filament\Resources\Resource;
-use Filament\Forms\Components\Grid;
-use Illuminate\Support\Facades\Auth;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\Section;
-use Filament\Tables\Columns\TextColumn;
-use Filament\Forms\Components\TextInput;
-use Filament\Tables\Columns\ImageColumn;
-use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\RichEditor;
-use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\KomnewsResource\Pages;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\KomnewsResource\RelationManagers;
+use App\Models\Komnews;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Grid;
+use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Form;
+use Filament\Resources\Resource;
+use Filament\Tables;
+use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Table;
+use Illuminate\Support\Facades\Auth;
 
 class KomnewsResource extends Resource
 {
@@ -40,32 +36,32 @@ class KomnewsResource extends Resource
         return $form
             ->schema([
                 Section::make()->schema([
-                    FileUpload::make("image")
+                    FileUpload::make('image')
                         ->image()
-                        ->label("Image Cover")
-                        ->disk("public")
+                        ->label('Image Cover')
+                        ->disk('public')
                         ->maxSize(2048)
                         ->required(),
                     Grid::make(2)
                         ->schema([
-                            TextInput::make("title")
-                                ->required()
+                            TextInput::make('title')
+                                ->required(),
                         ]),
                     Grid::make(3)
                         ->schema([
-                            Select::make("categories")
+                            Select::make('categories')
                                 ->multiple()
-                                ->relationship(titleAttribute: "name")
+                                ->relationship(titleAttribute: 'name')
                                 ->searchable()
                                 ->preload()
-                                ->required()
+                                ->required(),
                         ]),
                     RichEditor::make('content')
-                        ->label("Content")
-                        ->placeholder("Lorem ipsum dolor sit amet....")
-                        ->disableToolbarButtons(["code"])
-                        ->required()
-                ])
+                        ->label('Content')
+                        ->placeholder('Lorem ipsum dolor sit amet....')
+                        ->disableToolbarButtons(['code'])
+                        ->required(),
+                ]),
             ]);
     }
 
@@ -75,7 +71,7 @@ class KomnewsResource extends Resource
             ->columns([
                 ImageColumn::make('image'),
                 TextColumn::make('title')
-                    ->description(fn(Komnews $news): string => $news->excerp)
+                    ->description(fn (Komnews $news): string => $news->excerp)
                     ->wrap(),
                 TextColumn::make('slug')->wrap(),
                 TextColumn::make('categories.name')
@@ -86,10 +82,10 @@ class KomnewsResource extends Resource
             ->filters([
                 //
             ])
-            ->persistFiltersInSession() 
+            ->persistFiltersInSession()
             ->actions([
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make()
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

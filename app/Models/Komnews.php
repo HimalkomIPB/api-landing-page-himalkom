@@ -2,20 +2,18 @@
 
 namespace App\Models;
 
-use Illuminate\Support\Str;
-use App\Models\KomnewsCategory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Support\Str;
 
 class Komnews extends Model
 {
     protected $fillable = [
-        "title",
-        "slug",
-        "content",
-        "excerp",
-        "image"
+        'title',
+        'slug',
+        'content',
+        'excerp',
+        'image',
     ];
 
     protected $with = ['categories'];
@@ -40,7 +38,7 @@ class Komnews extends Model
         static::deleting(function ($news) {
             Storage::disk('public')->delete($news->image);
 
-            $doc = new \DOMDocument();
+            $doc = new \DOMDocument;
             libxml_use_internal_errors(true);
             $doc->loadHTML($news->content);
 
@@ -69,16 +67,17 @@ class Komnews extends Model
         });
     }
 
-    static function setExcerp($content): String
+    public static function setExcerp($content): string
     {
-        $excerp = Str::limit(strip_tags($content), $limit = 50, $end = "...");
-        $excerp = str_replace("&nbsp;", "", $excerp);
-        $excerp = $excerp . "...";
+        $excerp = Str::limit(strip_tags($content), $limit = 50, $end = '...');
+        $excerp = str_replace('&nbsp;', '', $excerp);
+        $excerp = $excerp.'...';
+
         return $excerp;
     }
 
-    static function setSlug($title): String
+    public static function setSlug($title): string
     {
-        return Str::slug($title) . '-' . time() . '-' . bin2hex(random_bytes(8));
+        return Str::slug($title).'-'.time().'-'.bin2hex(random_bytes(8));
     }
 }

@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class Community extends Model
 {
@@ -28,7 +28,7 @@ class Community extends Model
 
     protected $casts = [
         'purposes' => 'array',
-        'achievements' => 'array'
+        'achievements' => 'array',
     ];
 
     protected static function booted()

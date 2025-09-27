@@ -8,10 +8,10 @@ use Illuminate\Support\Facades\Storage;
 class Syntax extends Model
 {
     protected $fillable = [
-        "title",
-        "year",
-        "image",
-        "link",
+        'title',
+        'year',
+        'image',
+        'link',
     ];
 
     protected static function booted()

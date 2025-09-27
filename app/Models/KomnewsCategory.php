@@ -2,21 +2,20 @@
 
 namespace App\Models;
 
-use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class KomnewsCategory extends Model
 {
     protected $fillable = [
-        "name",
-        "slug"
+        'name',
+        'slug',
     ];
 
     public function komnews()
     {
         return $this->belongsToMany(Komnews::class, 'komnews_category_relations');
     }
-
 
     protected static function booted()
     {

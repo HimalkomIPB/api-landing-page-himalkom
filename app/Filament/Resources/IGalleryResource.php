@@ -2,28 +2,23 @@
 
 namespace App\Filament\Resources;
 
-use Filament\Forms;
-use Filament\Tables;
-use App\Models\IGallery;
-use Filament\Forms\Form;
-use Filament\Tables\Table;
-use App\Models\IGallerySubject;
-use App\Models\IGallery_subject;
-use Filament\Resources\Resource;
-use Filament\Forms\Components\Grid;
-use Illuminate\Support\Facades\Auth;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\Section;
-use Filament\Forms\Components\Textarea;
-use Filament\Tables\Columns\TextColumn;
-use Filament\Forms\Components\TextInput;
-use Filament\Tables\Columns\ImageColumn;
-use Filament\Forms\Components\FileUpload;
-use Filament\Tables\Filters\SelectFilter;
-use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\IGalleryResource\Pages;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\IGalleryResource\RelationManagers;
+use App\Models\IGallery;
+use App\Models\IGallerySubject;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Grid;
+use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Form;
+use Filament\Resources\Resource;
+use Filament\Tables;
+use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
+use Filament\Tables\Table;
+use Illuminate\Support\Facades\Auth;
 
 class IGalleryResource extends Resource
 {
@@ -43,19 +38,19 @@ class IGalleryResource extends Resource
         return $form
             ->schema([
                 Section::make()->schema([
-                    FileUpload::make("image")
+                    FileUpload::make('image')
                         ->image()
-                        ->label("Image")
-                        ->disk("public")
+                        ->label('Image')
+                        ->disk('public')
                         ->maxSize(2048)
                         ->required(),
                     Grid::make(2)
                         ->schema([
-                            TextInput::make("name")->placeholder("Judul proyek")->required(),
+                            TextInput::make('name')->placeholder('Judul proyek')->required(),
                         ]),
                     Grid::make(2)
                         ->schema([
-                            TextArea::make("description")->placeholder("deskripsi singkat proyek")->required()
+                            TextArea::make('description')->placeholder('deskripsi singkat proyek')->required(),
                         ]),
                     Grid::make(2)->schema([
                         Select::make('subject_id')
@@ -63,15 +58,15 @@ class IGalleryResource extends Resource
                             ->options(IGallerySubject::pluck('name', 'id'))
                             ->searchable()
                             ->preload()
-                            ->required()
+                            ->required(),
                     ]),
                     Grid::make(2)
                         ->schema([
-                            TextInput::make("contributor")->placeholder("Format: Kirito, Asuna, Shion KOM 60")->required(),
-                            TextInput::make("angkatan")->numeric()->placeholder("Ex: 59")->required()
+                            TextInput::make('contributor')->placeholder('Format: Kirito, Asuna, Shion KOM 60')->required(),
+                            TextInput::make('angkatan')->numeric()->placeholder('Ex: 59')->required(),
                         ]),
-                    TextInput::make("link")->label("Link projek")->placeholder("https://github.com/username/.....")->required(),
-                ])
+                    TextInput::make('link')->label('Link projek')->placeholder('https://github.com/username/.....')->required(),
+                ]),
             ]);
     }
 
@@ -79,27 +74,27 @@ class IGalleryResource extends Resource
     {
         return $table
             ->columns([
-                ImageColumn::make("image"),
-                TextColumn::make("name")
+                ImageColumn::make('image'),
+                TextColumn::make('name')
                     ->sortable()
-                    ->description(fn(IGallery $iGallery): string =>  $iGallery->description)
+                    ->description(fn (IGallery $iGallery): string => $iGallery->description)
                     ->wrap(),
-                TextColumn::make("contributor")
-                    ->description(fn(IGallery $iGallery): string => "KOM " . $iGallery->angkatan),
-                TextColumn::make("subject.name")->label("subject")->sortable(),
-                TextColumn::make("link")->url(fn(IGallery $iGallery) => $iGallery->link)->color("primary")->openUrlInNewTab()
+                TextColumn::make('contributor')
+                    ->description(fn (IGallery $iGallery): string => 'KOM '.$iGallery->angkatan),
+                TextColumn::make('subject.name')->label('subject')->sortable(),
+                TextColumn::make('link')->url(fn (IGallery $iGallery) => $iGallery->link)->color('primary')->openUrlInNewTab(),
             ])
             ->filters([
                 SelectFilter::make('subject_id')
                     ->label('Filter by Subject')
                     ->relationship('subject', 'name')
                     ->preload()
-                    ->searchable()
+                    ->searchable(),
             ])
-            ->persistFiltersInSession() 
+            ->persistFiltersInSession()
             ->actions([
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make()
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

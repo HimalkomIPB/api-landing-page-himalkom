@@ -2,25 +2,19 @@
 
 namespace App\Filament\Resources;
 
-use Filament\Forms;
-use Filament\Tables;
+use App\Filament\Resources\DivisionResource\Pages;
 use App\Models\Division;
-use Filament\Forms\Form;
-use Filament\Tables\Table;
-use Filament\Resources\Resource;
-use Illuminate\Support\Facades\Auth;
-use Filament\Forms\Components\Wizard;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Textarea;
-use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Form;
+use Filament\Resources\Resource;
+use Filament\Tables;
 use Filament\Tables\Columns\ImageColumn;
-use Filament\Forms\Components\FileUpload;
-use Illuminate\Database\Eloquent\Builder;
-use Filament\Forms\Components\Wizard\Step;
-use App\Filament\Resources\DivisionResource\Pages;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\DivisionResource\RelationManagers;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Table;
+use Illuminate\Support\Facades\Auth;
 
 class DivisionResource extends Resource
 {
@@ -39,22 +33,22 @@ class DivisionResource extends Resource
     {
         return $form
             ->schema([
-                FileUpload::make("logo")
+                FileUpload::make('logo')
                     ->image()
-                    ->label("Logo Divisi")
-                    ->disk("public")
+                    ->label('Logo Divisi')
+                    ->disk('public')
                     ->maxSize(2048)
                     ->columnSpanFull()
                     ->required(),
-                TextInput::make("name")->placeholder("nama lengkap divisi")->required(),
-                TextInput::make("abbreviation")->placeholder("singkatan divisi, ex: BPH, ACE")->required(),
-                Textarea::make("description")->placeholder("deskripsi divisi")->required(),
-                Repeater::make("workPrograms")
-                    ->label("Program Kerja")
-                    ->relationship("workPrograms")
+                TextInput::make('name')->placeholder('nama lengkap divisi')->required(),
+                TextInput::make('abbreviation')->placeholder('singkatan divisi, ex: BPH, ACE')->required(),
+                Textarea::make('description')->placeholder('deskripsi divisi')->required(),
+                Repeater::make('workPrograms')
+                    ->label('Program Kerja')
+                    ->relationship('workPrograms')
                     ->schema([
-                        TextInput::make('name')->placeholder("Ex. Upgrading Himalkom"),
-                        Textarea::make('description')->placeholder("Ex. Proker ini adalah.....")
+                        TextInput::make('name')->placeholder('Ex. Upgrading Himalkom'),
+                        Textarea::make('description')->placeholder('Ex. Proker ini adalah.....'),
                     ])
                     ->collapsible()
                     ->columnSpanFull(),
@@ -65,11 +59,11 @@ class DivisionResource extends Resource
     {
         return $table
             ->columns([
-                ImageColumn::make("logo")->circular(),
-                TextColumn::make("name"),
-                TextColumn::make("abbreviation"),
-                TextColumn::make("slug")->label("slug (auto generated)"),
-                TextColumn::make("description")->limit(100)->wrap(),
+                ImageColumn::make('logo')->circular(),
+                TextColumn::make('name'),
+                TextColumn::make('abbreviation'),
+                TextColumn::make('slug')->label('slug (auto generated)'),
+                TextColumn::make('description')->limit(100)->wrap(),
                 TextColumn::make('created_at')->dateTime()->sortable(),
                 TextColumn::make('updated_at')->label('last updated')->since()->sortable(),
             ])
@@ -79,7 +73,7 @@ class DivisionResource extends Resource
             ->persistFiltersInSession()
             ->actions([
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make()
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

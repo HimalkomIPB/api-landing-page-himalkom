@@ -2,30 +2,22 @@
 
 namespace App\Filament\Resources;
 
-use Filament\Forms;
-use Filament\Tables;
-use Filament\Forms\Form;
-use Filament\Tables\Table;
-use App\Models\KomnewsCategory;
-use Filament\Actions\EditAction;
-use Filament\Resources\Resource;
-use Illuminate\Support\Facades\Auth;
-use Filament\Forms\Components\Section;
-use Filament\Tables\Columns\TextColumn;
-use Filament\Forms\Components\TextInput;
-use Illuminate\Database\Eloquent\Builder;
-use Filament\Tables\Actions\BulkActionGroup;
-use Filament\Tables\Actions\DeleteBulkAction;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\KomnewsCategoryResource\Pages;
-use App\Filament\Resources\KomnewsCategoryResource\RelationManagers;
-use App\Filament\Resources\KomnewsCategoryResource\Pages\CreateKomnewsCategory;
-use App\Filament\Resources\KomnewsCategoryResource\Pages\ListKomnewsCategories;
+use App\Models\KomnewsCategory;
+use Filament\Forms\Components\Section;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Form;
+use Filament\Resources\Resource;
+use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Table;
+use Illuminate\Support\Facades\Auth;
 
 class KomnewsCategoryResource extends Resource
 {
     protected static ?string $model = KomnewsCategory::class;
-    public static ?string $label = "Category";
+
+    public static ?string $label = 'Category';
 
     protected static ?string $navigationIcon = 'heroicon-o-tag';
 
@@ -42,10 +34,10 @@ class KomnewsCategoryResource extends Resource
             ->schema([
                 Section::make()->schema([
                     TextInput::make('name')
-                        ->label("Name")
-                        ->placeholder("ex: study, collaboration")
-                        ->required()
-                ])
+                        ->label('Name')
+                        ->placeholder('ex: study, collaboration')
+                        ->required(),
+                ]),
             ]);
     }
 
@@ -54,15 +46,15 @@ class KomnewsCategoryResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('name')->searchable()->sortable(),
-                TextColumn::make('slug')
+                TextColumn::make('slug'),
             ])
             ->filters([
                 //
             ])
-            ->persistFiltersInSession() 
+            ->persistFiltersInSession()
             ->actions([
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make()
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

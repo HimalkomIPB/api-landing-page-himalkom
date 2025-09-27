@@ -25,7 +25,9 @@ class RestrictToFrontendDomain
         $origin = $request->headers->get('Origin');
         $referer = $request->headers->get('Referer');
 
-        if (!$origin || !$referer) return response()->json(['errors' => 'Forbidden'], 403);
+        if (! $origin || ! $referer) {
+            return response()->json(['errors' => 'Forbidden'], 403);
+        }
 
         if (
             ($origin && parse_url($origin, PHP_URL_HOST) !== $allowedDomain) &&

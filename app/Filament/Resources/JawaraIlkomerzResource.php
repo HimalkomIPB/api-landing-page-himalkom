@@ -2,26 +2,22 @@
 
 namespace App\Filament\Resources;
 
-use Filament\Forms;
-use Filament\Tables;
-use Filament\Forms\Form;
+use App\Filament\Resources\JawaraIlkomerzResource\Pages;
 use App\Models\Community;
-use Filament\Tables\Table;
 use App\Models\JawaraIlkomerz;
-use Filament\Resources\Resource;
-use Filament\Forms\Components\Grid;
-use Illuminate\Support\Facades\Auth;
-use Filament\Forms\Components\Select;
-use Filament\Tables\Columns\TextColumn;
-use Filament\Forms\Components\TextInput;
-use Filament\Tables\Columns\ImageColumn;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Grid;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Form;
+use Filament\Resources\Resource;
+use Filament\Tables;
+use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\JawaraIlkomerzResource\Pages;
-use App\Filament\Resources\JawaraIlkomerzResource\RelationManagers;
+use Filament\Tables\Table;
+use Illuminate\Support\Facades\Auth;
 
 class JawaraIlkomerzResource extends Resource
 {
@@ -33,17 +29,17 @@ class JawaraIlkomerzResource extends Resource
     {
         return in_array(Auth::user()?->email, [
             config('admin.admin_email'),
-            config('admin.admin_education_email')
+            config('admin.admin_education_email'),
         ]);
     }
 
     public static function form(Form $form): Form
     {
         return $form->schema([
-            FileUpload::make("image")
+            FileUpload::make('image')
                 ->image()
-                ->label("Gambar / Poster Lomba")
-                ->disk("public")
+                ->label('Gambar / Poster Lomba')
+                ->disk('public')
                 ->maxSize(2048)
                 ->nullable()
                 ->columnSpanFull(),
@@ -68,7 +64,7 @@ class JawaraIlkomerzResource extends Resource
                     ->label('Komunitas')
                     ->options(Community::pluck('name', 'id'))
                     ->searchable()
-                    ->preload()
+                    ->preload(),
             ]),
 
             DatePicker::make('start_date')
@@ -103,17 +99,17 @@ class JawaraIlkomerzResource extends Resource
                     ->searchable()
                     ->sortable(),
 
-                TextColumn::make("link")
-                    ->url(fn(JawaraIlkomerz $ji) => $ji->link)
+                TextColumn::make('link')
+                    ->url(fn (JawaraIlkomerz $ji) => $ji->link)
                     ->wrap()
-                    ->color("primary")
+                    ->color('primary')
                     ->openUrlInNewTab(),
 
                 TextColumn::make('community.name')
                     ->label('Komunitas')
                     ->searchable()
                     ->sortable()
-                    ->formatStateUsing(fn($state) => $state ?? 'Miscellaneous'),
+                    ->formatStateUsing(fn ($state) => $state ?? 'Miscellaneous'),
 
                 TextColumn::make('start_date')
                     ->label('Mulai')
@@ -133,12 +129,12 @@ class JawaraIlkomerzResource extends Resource
                     ->label('Filter by Community')
                     ->relationship('community', 'name')
                     ->preload()
-                    ->searchable()
+                    ->searchable(),
             ])
             ->persistFiltersInSession()
             ->actions([
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make()
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),

@@ -2,23 +2,19 @@
 
 namespace App\Filament\Resources;
 
-use Filament\Forms;
-use Filament\Tables;
-use App\Models\Research;
-use Filament\Forms\Form;
-use Filament\Tables\Table;
-use Filament\Resources\Resource;
-use Filament\Forms\Components\Grid;
-use Illuminate\Support\Facades\Auth;
-use Filament\Forms\Components\Section;
-use Filament\Tables\Columns\TextColumn;
-use Filament\Forms\Components\TextInput;
-use Filament\Tables\Columns\ImageColumn;
-use Filament\Forms\Components\FileUpload;
-use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\ResearchResource\Pages;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\ResearchResource\RelationManagers;
+use App\Models\Research;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Grid;
+use Filament\Forms\Components\Section;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Form;
+use Filament\Resources\Resource;
+use Filament\Tables;
+use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Table;
+use Illuminate\Support\Facades\Auth;
 
 class ResearchResource extends Resource
 {
@@ -38,22 +34,22 @@ class ResearchResource extends Resource
         return $form
             ->schema([
                 Section::make()->schema([
-                    FileUpload::make("image")
+                    FileUpload::make('image')
                         ->image()
-                        ->label("Image Cover")
-                        ->disk("public")
+                        ->label('Image Cover')
+                        ->disk('public')
                         ->maxSize(2048)
                         ->required(),
                     Grid::make(2)
                         ->schema([
-                            TextInput::make("title")->placeholder("Survei Minat Jenjang Karir Mahasiswa Ilmu Komputer IPB")->required(),
+                            TextInput::make('title')->placeholder('Survei Minat Jenjang Karir Mahasiswa Ilmu Komputer IPB')->required(),
                         ]),
                     Grid::make(2)
                         ->schema([
-                            TextInput::make("year")->numeric()->placeholder("2024")->required()
+                            TextInput::make('year')->numeric()->placeholder('2024')->required(),
                         ]),
-                    TextInput::make("link")->placeholder("https://drive.google.com/file/.....")->required(),
-                ])
+                    TextInput::make('link')->placeholder('https://drive.google.com/file/.....')->required(),
+                ]),
             ]);
     }
 
@@ -61,20 +57,20 @@ class ResearchResource extends Resource
     {
         return $table
             ->columns([
-                ImageColumn::make("image"),
-                TextColumn::make("title")->sortable(),
-                TextColumn::make("year")->sortable(),
-                TextColumn::make("link")->url(fn(Research $research) => $research->link)->color("primary")->openUrlInNewTab()->wrap()->limit(50),
+                ImageColumn::make('image'),
+                TextColumn::make('title')->sortable(),
+                TextColumn::make('year')->sortable(),
+                TextColumn::make('link')->url(fn (Research $research) => $research->link)->color('primary')->openUrlInNewTab()->wrap()->limit(50),
                 TextColumn::make('created_at')->dateTime()->sortable(),
                 TextColumn::make('updated_at')->label('last updated')->since()->sortable(),
             ])
             ->filters([
                 //
             ])
-            ->persistFiltersInSession() 
+            ->persistFiltersInSession()
             ->actions([
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make()
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
