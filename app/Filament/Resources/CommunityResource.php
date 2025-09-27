@@ -94,7 +94,14 @@ class CommunityResource extends Resource
                     ->description(fn(Community $comm): string => $comm->contact_whatsapp)
                     ->wrap()
                     ->limit(50),
-                ImageColumn::make('images.url')->square()->wrap(),
+                ImageColumn::make('images.url')
+                    ->label('Docs')
+                    ->square()
+                    ->wrap()
+                    ->getStateUsing(fn (Community $record) => $record->images->take(2)->pluck('url')->toArray()),
+                TextColumn::make('images_count')
+                    ->label('Total Docs')
+                    ->getStateUsing(fn ($record) => $record->images->count()),
                 TextColumn::make('created_at')->dateTime()->sortable(),
                 TextColumn::make('updated_at')->label('last updated')->since()->sortable(),
 
