@@ -17,14 +17,18 @@ class KomnewsController extends Controller
         $komnews = Komnews::whereDate('created_at', '!=', $today)
             ->orderBy('created_at', 'desc')
             ->get();
-        $todayHeadlines = Komnews::whereDate('created_at', $today)
+
+
+        $today = Carbon::today();
+        $eightDaysAgo = $today->copy()->subDays(7); // total 8 days = today + 7 days before
+        $headlines = Komnews::whereBetween('created_at', [$eightDaysAgo, $today->endOfDay()])
             ->orderBy('created_at', 'desc')
             ->get();
 
         return response()->json([
             'categories' => $categories,
             'komnews' => $komnews,
-            'todayHeadlines' => $todayHeadlines,
+            'todayHeadlines' => $headlines,
         ]);
     }
 
