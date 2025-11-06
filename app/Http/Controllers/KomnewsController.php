@@ -7,21 +7,34 @@ use App\Models\KomnewsCategory;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class KomnewsController extends Controller
 {
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
         $today = Carbon::today(config('app.timezone'));
         $categories = KomnewsCategory::all(['name', 'slug']);
-        $komnews = Komnews::whereDate('created_at', '!=', $today)
-            ->orderBy('created_at', 'desc')
-            ->get();
+        $perPage = (int) $request->query('per_page', 6);
+        $perPage = $perPage > 0 && $perPage <= 100 ? $perPage : 6;
+        $query = Komnews::whereDate('created_at', '!=', $today);
+        $paginated = $query->orderBy('created_at', 'desc')
+            ->paginate($perPage)
+            ->withQueryString();
+        $komnews = $paginated->getCollection();
         $todayHeadlines = Komnews::whereDate('created_at', $today)
             ->orderBy('created_at', 'desc')
             ->get();
+        $pagination = [
+            'current_page' => $paginated->currentPage(),
+            'per_page'     => $paginated->perPage(),
+            'total'        => $paginated->total(),
+            'last_page'    => $paginated->lastPage(),
+        ];
+
 
         return response()->json([
+            'pagination' => $pagination,
             'categories' => $categories,
             'komnews' => $komnews,
             'todayHeadlines' => $todayHeadlines,
