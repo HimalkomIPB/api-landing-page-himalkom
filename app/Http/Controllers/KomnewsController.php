@@ -22,7 +22,9 @@ class KomnewsController extends Controller
             ->paginate($perPage)
             ->withQueryString();
         $komnews = $paginated->getCollection();
-        $todayHeadlines = Komnews::whereDate('created_at', $today)
+        $today = Carbon::today();
+        $eightDaysAgo = $today->copy()->subDays(7); // total 8 days = today + 7 days before
+        $headlines = Komnews::whereBetween('created_at', [$eightDaysAgo, $today->endOfDay()])
             ->orderBy('created_at', 'desc')
             ->get();
         $pagination = [
@@ -37,7 +39,7 @@ class KomnewsController extends Controller
             'pagination' => $pagination,
             'categories' => $categories,
             'komnews' => $komnews,
-            'todayHeadlines' => $todayHeadlines,
+            'todayHeadlines' => $headlines,
         ]);
     }
 

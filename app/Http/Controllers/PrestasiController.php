@@ -82,8 +82,6 @@ class PrestasiController extends Controller
         ];
 
         return response()->json([
-            'status' => 'success',
-            'message' => 'Prestasi retrieved successfully',
             'pagination' => $pagination,
             'prestasi' => $items,
             'all_kategori' => $allkategori,
