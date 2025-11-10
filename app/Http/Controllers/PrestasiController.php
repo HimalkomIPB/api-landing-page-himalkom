@@ -46,6 +46,11 @@ class PrestasiController extends Controller
         if ($tahun) {
             $query->where('tahun', $tahun);
         }
+        if ($request->kategori && $request->kategori !== 'all') {
+            $query->whereHas('prestasiKategori', function($q) use ($request) {
+                $q->where('name', $request->kategori);
+            });
+        }
 
         $allowedSorts = ['tahun', 'created_at', 'nama'];
         if (! in_array($sort, $allowedSorts)) {
@@ -80,11 +85,16 @@ class PrestasiController extends Controller
             'total'        => $paginated->total(),
             'last_page'    => $paginated->lastPage(),
         ];
+        $allYears = Prestasi::select('tahun')
+        ->distinct()
+        ->orderBy('tahun', 'desc')
+        ->pluck('tahun');
 
         return response()->json([
             'pagination' => $pagination,
             'prestasi' => $items,
             'all_kategori' => $allkategori,
+            'all_years' => $allYears,
         ]);
     }
 
