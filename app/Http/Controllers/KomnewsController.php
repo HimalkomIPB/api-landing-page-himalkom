@@ -25,7 +25,7 @@ class KomnewsController extends Controller
         $query = Komnews::whereDate('created_at', '!=', $today);
 
         if ($categorySlug) {
-            $query->whereHas('category', function ($q) use ($categorySlug) {
+            $query->whereHas('categories', function ($q) use ($categorySlug) {
                 $q->where('slug', $categorySlug);
             });
         }
@@ -45,7 +45,7 @@ class KomnewsController extends Controller
         $headlineQuery = Komnews::whereBetween('created_at', [$startDate, $endDate]);
 
         if ($categorySlug) {
-            $headlineQuery->whereHas('category', function ($q) use ($categorySlug) {
+            $headlineQuery->whereHas('categories', function ($q) use ($categorySlug) {
                 $q->where('slug', $categorySlug);
             });
         }
