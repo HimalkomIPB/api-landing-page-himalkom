@@ -78,9 +78,7 @@ class PrestasiResource extends Resource
                 ->label('Dokumentasi Kegiatan')
                 ->image()
                 ->disk('public')
-                ->directory('prestasi')
                 ->maxSize(2048)
-                ->preserveFilenames(false)
                 ->required()
                 ->columnSpanFull(),
 

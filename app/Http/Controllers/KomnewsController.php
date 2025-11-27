@@ -14,17 +14,22 @@ class KomnewsController extends Controller
     public function index(Request $request): JsonResponse
     {
         $today = Carbon::today(config('app.timezone'));
+
         $categories = KomnewsCategory::all(['id', 'name', 'slug']);
+
         $perPage = (int) $request->query('per_page', 6);
         $perPage = $perPage > 0 && $perPage <= 100 ? $perPage : 6;
+
         $categorySlug = $request->query('category');
         $categoryId   = $request->query('category_id');
         $query = Komnews::whereDate('created_at', '!=', $today);
+
         if ($categorySlug) {
             $query->whereHas('category', function ($q) use ($categorySlug) {
                 $q->where('slug', $categorySlug);
             });
         }
+
         if ($categoryId) {
             $query->where('komnews_category_id', $categoryId);
         }
@@ -33,18 +38,27 @@ class KomnewsController extends Controller
             ->orderBy('created_at', 'desc')
             ->paginate($perPage)
             ->withQueryString();
-        $todayHeadlineQuery = Komnews::whereDate('created_at', $today);
+
+        $startDate = $today->copy()->subDays(7)->startOfDay();
+        $endDate   = $today->copy()->endOfDay();
+
+        $headlineQuery = Komnews::whereBetween('created_at', [$startDate, $endDate]);
+
         if ($categorySlug) {
-            $todayHeadlineQuery->whereHas('category', function ($q) use ($categorySlug) {
+            $headlineQuery->whereHas('category', function ($q) use ($categorySlug) {
                 $q->where('slug', $categorySlug);
             });
         }
+
         if ($categoryId) {
-            $todayHeadlineQuery->where('komnews_category_id', $categoryId);
+            $headlineQuery->where('komnews_category_id', $categoryId);
         }
-        $todayHeadlines = $todayHeadlineQuery
+
+        $todayHeadlines = $headlineQuery
             ->orderBy('created_at', 'desc')
             ->get();
+
+
         return response()->json([
             'pagination' => [
                 'current_page' => $paginated->currentPage(),
@@ -52,11 +66,12 @@ class KomnewsController extends Controller
                 'total'        => $paginated->total(),
                 'last_page'    => $paginated->lastPage(),
             ],
-            'categories'      => $categories,
-            'komnews'         => $paginated->items(),
-            'todayHeadlines'  => $todayHeadlines,
+            'categories'     => $categories,
+            'komnews'        => $paginated->items(),
+            'todayHeadlines' => $todayHeadlines,
         ]);
     }
+
 
 
     // For homepage, limit to 5 komnews
