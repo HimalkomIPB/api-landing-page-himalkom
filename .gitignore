@@ -23,3 +23,5 @@ yarn-error.log
 /.zed
 /*.zip
 .htaccess
+DockerFile
+/nginx
