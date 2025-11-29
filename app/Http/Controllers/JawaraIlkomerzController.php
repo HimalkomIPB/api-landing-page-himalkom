@@ -22,10 +22,11 @@ class JawaraIlkomerzController extends Controller
         $jawaraIlkomerzs = $paginated->getCollection();
         $pagination = [
             'current_page' => $paginated->currentPage(),
-            'per_page'     => $paginated->perPage(),
-            'total'        => $paginated->total(),
-            'last_page'    => $paginated->lastPage(),
+            'per_page' => $paginated->perPage(),
+            'total' => $paginated->total(),
+            'last_page' => $paginated->lastPage(),
         ];
+
         return response()->json([
             'jawaraIlkomerzs' => $jawaraIlkomerzs,
             'pagination' => $pagination,

@@ -20,9 +20,9 @@ class ResearchController extends Controller
 
         $pagination = [
             'current_page' => $paginated->currentPage(),
-            'per_page'     => $paginated->perPage(),
-            'total'        => $paginated->total(),
-            'last_page'    => $paginated->lastPage(),
+            'per_page' => $paginated->perPage(),
+            'total' => $paginated->total(),
+            'last_page' => $paginated->lastPage(),
         ];
 
         return response()->json([

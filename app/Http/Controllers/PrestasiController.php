@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Models\Prestasi;
 use App\Models\PrestasiKategori;
 use Illuminate\Http\Request;
-
 
 class PrestasiController extends Controller
 {
@@ -30,7 +28,7 @@ class PrestasiController extends Controller
         $perPage = $perPage > 0 && $perPage <= 100 ? $perPage : 6;
 
         $sort = $request->query('sort', 'tahun');
-        $dir  = strtolower($request->query('dir', 'desc')) === 'asc' ? 'asc' : 'desc';
+        $dir = strtolower($request->query('dir', 'desc')) === 'asc' ? 'asc' : 'desc';
 
         $query = Prestasi::query();
 
@@ -47,7 +45,7 @@ class PrestasiController extends Controller
             $query->where('tahun', $tahun);
         }
         if ($request->kategori && $request->kategori !== 'all') {
-            $query->whereHas('prestasiKategori', function($q) use ($request) {
+            $query->whereHas('prestasiKategori', function ($q) use ($request) {
                 $q->where('name', $request->kategori);
             });
         }
@@ -81,14 +79,14 @@ class PrestasiController extends Controller
         $allkategori = PrestasiKategori::select('id', 'name')->orderBy('name')->get();
         $pagination = [
             'current_page' => $paginated->currentPage(),
-            'per_page'     => $paginated->perPage(),
-            'total'        => $paginated->total(),
-            'last_page'    => $paginated->lastPage(),
+            'per_page' => $paginated->perPage(),
+            'total' => $paginated->total(),
+            'last_page' => $paginated->lastPage(),
         ];
         $allYears = Prestasi::select('tahun')
-        ->distinct()
-        ->orderBy('tahun', 'desc')
-        ->pluck('tahun');
+            ->distinct()
+            ->orderBy('tahun', 'desc')
+            ->pluck('tahun');
 
         return response()->json([
             'pagination' => $pagination,
@@ -98,8 +96,6 @@ class PrestasiController extends Controller
         ]);
     }
 
-
-
     /**
      * GET /api/prestasis/{id}
      * detail item
@@ -108,7 +104,7 @@ class PrestasiController extends Controller
     {
         $p = Prestasi::find($id);
 
-        if (!$p) {
+        if (! $p) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'Prestasi not found',

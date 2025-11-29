@@ -21,7 +21,7 @@ class KomnewsController extends Controller
         $perPage = $perPage > 0 && $perPage <= 100 ? $perPage : 6;
 
         $categorySlug = $request->query('category');
-        $categoryId   = $request->query('category_id');
+        $categoryId = $request->query('category_id');
         $query = Komnews::whereDate('created_at', '!=', $today);
 
         if ($categorySlug) {
@@ -40,7 +40,7 @@ class KomnewsController extends Controller
             ->withQueryString();
 
         $startDate = $today->copy()->subDays(7)->startOfDay();
-        $endDate   = $today->copy()->endOfDay();
+        $endDate = $today->copy()->endOfDay();
 
         $headlineQuery = Komnews::whereBetween('created_at', [$startDate, $endDate]);
 
@@ -58,21 +58,18 @@ class KomnewsController extends Controller
             ->orderBy('created_at', 'desc')
             ->get();
 
-
         return response()->json([
             'pagination' => [
                 'current_page' => $paginated->currentPage(),
-                'per_page'     => $paginated->perPage(),
-                'total'        => $paginated->total(),
-                'last_page'    => $paginated->lastPage(),
+                'per_page' => $paginated->perPage(),
+                'total' => $paginated->total(),
+                'last_page' => $paginated->lastPage(),
             ],
-            'categories'     => $categories,
-            'komnews'        => $paginated->items(),
+            'categories' => $categories,
+            'komnews' => $paginated->items(),
             'todayHeadlines' => $todayHeadlines,
         ]);
     }
-
-
 
     // For homepage, limit to 5 komnews
     public function indexHome(): JsonResponse

@@ -3,34 +3,36 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\PrestasiResource\Pages;
-use App\Filament\Resources\PrestasiResource\Pages\ListPrestasis;
 use App\Models\Prestasi;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Support\Facades\Auth;
-use Filament\Tables\Columns\ImageColumn;
-
 
 class PrestasiResource extends Resource
 {
     protected static ?string $model = Prestasi::class;
+
     protected static ?string $navigationIcon = 'heroicon-o-trophy';
+
     protected static ?string $navigationLabel = 'Prestasi';
+
     protected static ?int $navigationSort = 2;
+
     public static function canViewAny(): bool
     {
         return in_array(Auth::user()?->email, [
             config('admin.admin_email'),
+            config('admin.admin2_email'),
             config('admin.admin_education_email'),
         ]);
     }
@@ -107,7 +109,7 @@ class PrestasiResource extends Resource
             ->filters([
                 SelectFilter::make('tahun')
                     ->label('Filter Tahun')
-                    ->options(fn() => Prestasi::query()->pluck('tahun', 'tahun')->unique()->sortDesc()->toArray())
+                    ->options(fn () => Prestasi::query()->pluck('tahun', 'tahun')->unique()->sortDesc()->toArray())
                     ->placeholder('Semua tahun'),
                 SelectFilter::make('prestasi_kategori_id')
                     ->label('Kategori')

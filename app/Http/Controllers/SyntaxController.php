@@ -19,15 +19,15 @@ class SyntaxController extends Controller
 
         $pagination = [
             'current_page' => $paginated->currentPage(),
-            'per_page'     => $paginated->perPage(),
-            'total'        => $paginated->total(),
-            'last_page'    => $paginated->lastPage(),
+            'per_page' => $paginated->perPage(),
+            'total' => $paginated->total(),
+            'last_page' => $paginated->lastPage(),
         ];
         $syntaxes = $paginated->getCollection();
 
         return response()->json([
             'syntaxes' => $syntaxes,
-            'pagination' => $pagination
+            'pagination' => $pagination,
         ]);
     }
 }

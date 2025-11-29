@@ -51,7 +51,7 @@ class Prestasi extends Model
 
         $dirname = pathinfo($this->bukti_path, PATHINFO_DIRNAME);
         $basename = rawurlencode(pathinfo($this->bukti_path, PATHINFO_BASENAME));
-        $encodedPath = $dirname && $dirname !== '.' ? ($dirname . '/' . $basename) : $basename;
+        $encodedPath = $dirname && $dirname !== '.' ? ($dirname.'/'.$basename) : $basename;
 
         return Storage::disk('public')->url($encodedPath);
     }

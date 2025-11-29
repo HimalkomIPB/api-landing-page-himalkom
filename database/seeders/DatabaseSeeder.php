@@ -23,6 +23,15 @@ class DatabaseSeeder extends Seeder
         );
 
         User::updateOrCreate(
+            ['email' => env('ADMIN2_EMAIL')],
+            [
+                'name' => 'ristek 2 (restricted)',
+                'password' => bcrypt(env('ADMIN2_PASSWORD')),
+                'email_verified_at' => now(),
+            ]
+        );
+
+        User::updateOrCreate(
             ['email' => env('ADMIN_EDUCATION_EMAIL')],
             [
                 'name' => 'ACE Admin',

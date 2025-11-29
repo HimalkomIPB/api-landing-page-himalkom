@@ -7,15 +7,12 @@ use App\Http\Controllers\IGallerySubjectController;
 use App\Http\Controllers\JawaraIlkomerzController;
 use App\Http\Controllers\KomnewsController;
 use App\Http\Controllers\MegaprokerController;
+use App\Http\Controllers\PrestasiController;
 use App\Http\Controllers\ResearchController;
 use App\Http\Controllers\SyntaxController;
 use App\Http\Middleware\RestrictToFrontendDomain;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PrestasiController;
-
-
-
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -52,7 +49,7 @@ Route::middleware([RestrictToFrontendDomain::class])->group(function () {
     // Jawara Ilkomerz
     Route::get('/jawara-ilkomerzs', [JawaraIlkomerzController::class, 'index']);
 
-    //prestasi
+    // prestasi
     Route::get('prestasi', [PrestasiController::class, 'index']);
     Route::get('prestasi/{id}', [PrestasiController::class, 'show']);
 });

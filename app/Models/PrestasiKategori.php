@@ -4,8 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-
 
 class PrestasiKategori extends Model
 {
@@ -14,7 +12,6 @@ class PrestasiKategori extends Model
     protected $fillable = [
         'name',
     ];
-
 
     public function prestasis(): HasMany
     {
