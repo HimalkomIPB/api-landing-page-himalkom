@@ -7,30 +7,72 @@ use App\Models\KomnewsCategory;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class KomnewsController extends Controller
 {
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
         $today = Carbon::today(config('app.timezone'));
-        $categories = KomnewsCategory::all(['name', 'slug']);
-        $komnews = Komnews::whereDate('created_at', '!=', $today)
+
+        $categories = KomnewsCategory::all(['id', 'name', 'slug']);
+
+        $perPage = (int) $request->query('per_page', 6);
+        $perPage = $perPage > 0 && $perPage <= 100 ? $perPage : 6;
+
+        $categorySlug = $request->query('category');
+        $categoryId   = $request->query('category_id');
+        $query = Komnews::whereDate('created_at', '!=', $today);
+
+        if ($categorySlug) {
+            $query->whereHas('categories', function ($q) use ($categorySlug) {
+                $q->where('slug', $categorySlug);
+            });
+        }
+
+        if ($categoryId) {
+            $query->where('komnews_category_id', $categoryId);
+        }
+
+        $paginated = $query
+            ->orderBy('created_at', 'desc')
+            ->paginate($perPage)
+            ->withQueryString();
+
+        $startDate = $today->copy()->subDays(7)->startOfDay();
+        $endDate   = $today->copy()->endOfDay();
+
+        $headlineQuery = Komnews::whereBetween('created_at', [$startDate, $endDate]);
+
+        if ($categorySlug) {
+            $headlineQuery->whereHas('categories', function ($q) use ($categorySlug) {
+                $q->where('slug', $categorySlug);
+            });
+        }
+
+        if ($categoryId) {
+            $headlineQuery->where('komnews_category_id', $categoryId);
+        }
+
+        $todayHeadlines = $headlineQuery
             ->orderBy('created_at', 'desc')
             ->get();
 
-
-        $today = Carbon::today();
-        $eightDaysAgo = $today->copy()->subDays(7); // total 8 days = today + 7 days before
-        $headlines = Komnews::whereBetween('created_at', [$eightDaysAgo, $today->endOfDay()])
-            ->orderBy('created_at', 'desc')
-            ->get();
 
         return response()->json([
-            'categories' => $categories,
-            'komnews' => $komnews,
-            'todayHeadlines' => $headlines,
+            'pagination' => [
+                'current_page' => $paginated->currentPage(),
+                'per_page'     => $paginated->perPage(),
+                'total'        => $paginated->total(),
+                'last_page'    => $paginated->lastPage(),
+            ],
+            'categories'     => $categories,
+            'komnews'        => $paginated->items(),
+            'todayHeadlines' => $todayHeadlines,
         ]);
     }
+
+
 
     // For homepage, limit to 5 komnews
     public function indexHome(): JsonResponse
