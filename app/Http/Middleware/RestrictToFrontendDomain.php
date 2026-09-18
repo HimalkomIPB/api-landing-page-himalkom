@@ -19,20 +19,29 @@ class RestrictToFrontendDomain
             return $next($request);
         }
 
-        $allowedDomain = config('app.allowed_origin');
-        $allowedDomain = parse_url($allowedDomain, PHP_URL_HOST);
+        $allowedOrigin = config('app.allowed_origin');
+        
+        if ($allowedOrigin === '*') {
+            return $next($request);
+        }
+
+        $allowedDomain = parse_url($allowedOrigin, PHP_URL_HOST) ?: $allowedOrigin;
 
         $origin = $request->headers->get('Origin');
         $referer = $request->headers->get('Referer');
 
-        if (! $origin || ! $referer) {
+        if (! $origin && ! $referer) {
             return response()->json(['errors' => 'Forbidden'], 403);
         }
 
-        if (
-            ($origin && parse_url($origin, PHP_URL_HOST) !== $allowedDomain) &&
-            ($referer && parse_url($referer, PHP_URL_HOST) !== $allowedDomain)
-        ) {
+        $originDomain = $origin ? parse_url($origin, PHP_URL_HOST) : null;
+        $refererDomain = $referer ? parse_url($referer, PHP_URL_HOST) : null;
+
+        if ($originDomain && $originDomain !== $allowedDomain) {
+            return response()->json(['errors' => 'Forbidden'], 403);
+        }
+
+        if ($refererDomain && $refererDomain !== $allowedDomain) {
             return response()->json(['errors' => 'Forbidden'], 403);
         }
 

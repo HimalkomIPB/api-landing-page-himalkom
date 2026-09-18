@@ -13,6 +13,7 @@ return Application::configure(basePath: dirname(__DIR__))
         apiPrefix: ''
     )
     ->withMiddleware(function (Middleware $middleware) {
+        $middleware->trustProxies(at: '*');
         \App\Http\Middleware\RestrictToFrontendDomain::class;
     })
     ->withExceptions(function (Exceptions $exceptions) {
