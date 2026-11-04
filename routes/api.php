@@ -4,6 +4,7 @@ use App\Http\Controllers\CommunityController;
 use App\Http\Controllers\DivisionController;
 use App\Http\Controllers\IGalleryController;
 use App\Http\Controllers\IGallerySubjectController;
+use App\Http\Controllers\InfolombaController;
 use App\Http\Controllers\JawaraIlkomerzController;
 use App\Http\Controllers\KomnewsController;
 use App\Http\Controllers\MegaprokerController;
@@ -19,6 +20,11 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::middleware([RestrictToFrontendDomain::class])->group(function () {
+    // Info lomba (static paths must precede the slug route).
+    Route::get('/infolomba', [InfolombaController::class, 'index']);
+    Route::get('/infolomba/categories', [InfolombaController::class, 'categories']);
+    Route::get('/infolomba/{slug}', [InfolombaController::class, 'show']);
+
     // community
     Route::get('/communities', [CommunityController::class, 'index']);
     Route::get('/communities/{slug}', [CommunityController::class, 'showBySlug']);

@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,31 +12,26 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::updateOrCreate(
-            ['email' => env('ADMIN_EMAIL')],
-            [
-                'name' => 'ristek',
-                'password' => bcrypt(env('ADMIN_PASSWORD')),
-                'email_verified_at' => now(),
-            ]
-        );
+        foreach ([
+            'admin' => 'ristek',
+            'admin2' => 'ristek 2 (restricted)',
+            'admin_education' => 'ACE Admin',
+        ] as $key => $name) {
+            $email = config("admin.{$key}_email");
+            $password = config("admin.{$key}_password");
 
-        User::updateOrCreate(
-            ['email' => env('ADMIN2_EMAIL')],
-            [
-                'name' => 'ristek 2 (restricted)',
-                'password' => bcrypt(env('ADMIN2_PASSWORD')),
-                'email_verified_at' => now(),
-            ]
-        );
+            if (blank($email) || blank($password)) {
+                continue;
+            }
 
-        User::updateOrCreate(
-            ['email' => env('ADMIN_EDUCATION_EMAIL')],
-            [
-                'name' => 'ACE Admin',
-                'password' => bcrypt(env('ADMIN_EDUCATION_PASSWORD')),
-                'email_verified_at' => now(),
-            ]
-        );
+            User::updateOrCreate(
+                ['email' => $email],
+                [
+                    'name' => $name,
+                    'password' => bcrypt($password),
+                    'email_verified_at' => now(),
+                ]
+            );
+        }
     }
 }
