@@ -313,6 +313,130 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Info Lomba",
+			"description": "CRUD melalui admin panel. Untuk production, gunakan base URL deployment dan Origin sesuai ALLOWED_ORIGIN seperti endpoint lain.",
+			"item": [
+				{
+					"name": "Get Info Lomba",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:8000/infolomba?page=1&per_page=6",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"infolomba"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "per_page",
+									"value": "6"
+								},
+								{
+									"key": "q",
+									"value": "Hackathon",
+									"disabled": true
+								},
+								{
+									"key": "category_id",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": "active",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Daftar terbaru, pagination, pencarian judul (q), category_id, dan status: upcoming/active/closed. Lihat docs/infolomba-frontend-handoff.md."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Kategori Lomba",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:8000/infolomba/categories",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"infolomba",
+								"categories"
+							]
+						},
+						"description": "Semua kategori lomba, diurutkan berdasarkan nama."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Info Lomba by Slug",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:8000/infolomba/{{infolomba_slug}}",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"infolomba",
+								"{{infolomba_slug}}"
+							]
+						},
+						"description": "Isi variable infolomba_slug dengan slug dari respons daftar. Slug stabil ketika judul diedit."
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "infolomba_slug",
+			"value": "replace-with-slug-from-list",
+			"type": "string"
 		}
 	]
 }
