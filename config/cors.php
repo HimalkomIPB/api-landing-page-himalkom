@@ -31,6 +31,7 @@ return [
 
     'max_age' => 0,
 
-    'supports_credentials' => false,
+    // Credentials are needed for the student session cookie; origins stay restricted in production.
+    'supports_credentials' => true,
 
 ];
