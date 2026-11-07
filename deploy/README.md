@@ -12,3 +12,5 @@ Coolify builds `Dockerfile` from this repo and deploys automatically on push:
 - The container does **not** run migrations. Run `php artisan migrate --force` by hand after review.
 - Test changes on `staging` first, then merge into `main`.
 - Add `[skip ci]` to a commit message to skip the Coolify deploy.
+
+CD verified on staging: 2026-11-07 (GitHub push -> Coolify webhook).
