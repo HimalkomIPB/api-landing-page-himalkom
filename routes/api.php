@@ -4,7 +4,9 @@ use App\Http\Controllers\CommunityController;
 use App\Http\Controllers\DivisionController;
 use App\Http\Controllers\IGalleryController;
 use App\Http\Controllers\IGallerySubjectController;
+use App\Http\Controllers\InfoBeasiswaController;
 use App\Http\Controllers\InfolombaController;
+use App\Http\Controllers\InfoMagangController;
 use App\Http\Controllers\JawaraIlkomerzController;
 use App\Http\Controllers\KomnewsController;
 use App\Http\Controllers\MegaprokerController;
@@ -24,6 +26,12 @@ Route::middleware([RestrictToFrontendDomain::class])->group(function () {
     Route::get('/infolomba', [InfolombaController::class, 'index']);
     Route::get('/infolomba/categories', [InfolombaController::class, 'categories']);
     Route::get('/infolomba/{slug}', [InfolombaController::class, 'show']);
+
+    Route::get('/info-beasiswa', [InfoBeasiswaController::class, 'index']);
+    Route::get('/info-beasiswa/{slug}', [InfoBeasiswaController::class, 'show']);
+
+    Route::get('/info-magang', [InfoMagangController::class, 'index']);
+    Route::get('/info-magang/{slug}', [InfoMagangController::class, 'show']);
 
     // community
     Route::get('/communities', [CommunityController::class, 'index']);
