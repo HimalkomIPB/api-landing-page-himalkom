@@ -1,8 +1,18 @@
 <?php
 
+use App\Filament\Resources\InfoBeasiswaResource\Pages\CreateInfoBeasiswa;
+use App\Filament\Resources\InfoBeasiswaResource\Pages\EditInfoBeasiswa;
+use App\Filament\Resources\InfoBeasiswaResource\Pages\ListInfoBeasiswa;
+use App\Filament\Resources\InfoMagangResource\Pages\CreateInfoMagang;
+use App\Filament\Resources\InfoMagangResource\Pages\EditInfoMagang;
+use App\Filament\Resources\InfoMagangResource\Pages\ListInfoMagang;
 use App\Models\InfoBeasiswa;
 use App\Models\InfoMagang;
+use App\Models\User;
+use Filament\Facades\Filament;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
+use Livewire\Livewire;
 
 beforeEach(function () {
     config()->set('database.default', 'sqlite');
@@ -11,6 +21,7 @@ beforeEach(function () {
     app('db')->purge('sqlite');
 
     foreach ([
+        '0001_01_01_000000_create_users_table.php',
         '2026_11_20_000001_create_info_beasiswa_table.php',
         '2026_11_20_000002_create_info_magang_table.php',
     ] as $migration) {
@@ -18,6 +29,7 @@ beforeEach(function () {
     }
 
     config()->set('app.allowed_origin', '*');
+    config()->set('admin.admin_email', 'admin@example.com');
     $this->travelTo(today(config('app.timezone'))->setDate(2026, 11, 20));
     $this->attributes = [
         'image' => 'covers/foto #1.jpg',
@@ -112,3 +124,102 @@ it('validates list parameters and applies the frontend domain middleware to both
     $this->withHeader('Origin', 'https://example.com')->getJson($path.'/'.$info->slug)->assertForbidden();
     $this->withHeader('Origin', 'https://himalkom-ipb.com')->getJson($path.'/'.$info->slug)->assertOk();
 })->with('registration info APIs');
+
+dataset('registration info admin pages', [
+    'beasiswa' => [InfoBeasiswa::class, 'info-beasiswa', CreateInfoBeasiswa::class, EditInfoBeasiswa::class, ListInfoBeasiswa::class],
+    'magang' => [InfoMagang::class, 'info-magang', CreateInfoMagang::class, EditInfoMagang::class, ListInfoMagang::class],
+]);
+
+it('lets the primary admin create, edit and delete from Filament and serves the changes through the API', function (
+    string $model, string $section, string $createPage, string $editPage,
+) {
+    $this->actingAs(User::factory()->create(['email' => 'admin@example.com']));
+    Filament::setCurrentPanel(Filament::getPanel('admin'));
+    Storage::fake('public');
+
+    $indexUrl = '/admin/'.$section;
+    $this->get($indexUrl)->assertOk();
+    $this->get($indexUrl.'/create')->assertOk();
+
+    Livewire::test($createPage)
+        ->fillForm([...$this->attributes, 'image' => UploadedFile::fake()->image('cover.jpg')])
+        ->call('create')->assertHasNoFormErrors()->assertRedirect($indexUrl);
+    $info = $model::firstOrFail();
+    $oldCover = $info->image;
+    expect($oldCover)->toStartWith($section.'/');
+    Storage::disk('public')->assertExists($oldCover);
+    $this->get($indexUrl.'/'.$info->id.'/edit')->assertOk();
+
+    Livewire::test($editPage, ['record' => $info->getRouteKey()])
+        ->set('data.image', [])
+        ->fillForm(['title' => 'Judul Baru', 'image' => UploadedFile::fake()->image('new.jpg')])
+        ->call('save')->assertHasNoFormErrors()->assertRedirect($indexUrl);
+    $info->refresh();
+    expect($info->title)->toBe('Judul Baru');
+    expect($info->image)->not->toBe($oldCover);
+    Storage::disk('public')->assertMissing($oldCover)->assertExists($info->image);
+
+    $detailUrl = '/'.$section.'/'.$info->slug;
+    $this->getJson($detailUrl)->assertOk()->assertJsonFragment(['title' => 'Judul Baru', 'image' => $info->image]);
+
+    Livewire::test($editPage, ['record' => $info->getRouteKey()])->callAction('delete');
+    $this->assertModelMissing($info);
+    Storage::disk('public')->assertMissing($info->image);
+    $this->getJson($detailUrl)->assertNotFound();
+})->with('registration info admin pages');
+
+it('filters the admin list by registration status and removes covers on bulk deletion', function (
+    string $model, string $section, string $createPage, string $editPage, string $listPage,
+) {
+    $this->actingAs(User::factory()->create(['email' => 'admin@example.com']));
+    Filament::setCurrentPanel(Filament::getPanel('admin'));
+    Storage::fake('public');
+
+    $active = $model::create($this->attributes);
+    $upcoming = $model::create([
+        ...$this->attributes,
+        'image' => $section.'/upcoming.jpg',
+        'start_date' => '2026-11-21',
+        'end_date' => '2026-11-23',
+    ]);
+    Storage::disk('public')->put($active->image, 'active cover');
+    Storage::disk('public')->put($upcoming->image, 'upcoming cover');
+
+    Livewire::test($listPage)->filterTable('status', 'upcoming')
+        ->assertCanSeeTableRecords([$upcoming])->assertCanNotSeeTableRecords([$active])
+        ->callTableBulkAction('delete', [$upcoming]);
+
+    $this->assertModelMissing($upcoming);
+    $this->assertModelExists($active);
+    Storage::disk('public')->assertMissing($upcoming->image)->assertExists($active->image);
+})->with('registration info admin pages');
+
+it('validates required fields, cover size, date order and link in Filament', function (
+    string $model, string $section, string $createPage,
+) {
+    $this->actingAs(User::factory()->create(['email' => 'admin@example.com']));
+    Filament::setCurrentPanel(Filament::getPanel('admin'));
+    Storage::fake('public');
+
+    Livewire::test($createPage)
+        ->fillForm([
+            ...$this->attributes,
+            'title' => '',
+            'image' => UploadedFile::fake()->image('cover.jpg')->size(2049),
+            'start_date' => '2026-11-21',
+            'link' => 'ftp://example.com/daftar',
+        ])
+        ->call('create')->assertHasFormErrors(['title' => 'required', 'image', 'end_date' => 'after_or_equal', 'link']);
+
+    $this->assertDatabaseCount((new $model)->getTable(), 0);
+})->with('registration info admin pages');
+
+it('denies access to another panel user at the registration info admin URLs', function (string $model, string $section) {
+    $info = $model::create($this->attributes);
+    $this->actingAs(User::factory()->create(['email' => 'staff@himalkom.com']));
+
+    $indexUrl = '/admin/'.$section;
+    $this->get($indexUrl)->assertForbidden();
+    $this->get($indexUrl.'/create')->assertForbidden();
+    $this->get($indexUrl.'/'.$info->id.'/edit')->assertForbidden();
+})->with('registration info admin pages');
