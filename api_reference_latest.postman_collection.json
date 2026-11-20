@@ -430,11 +430,187 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Info Beasiswa",
+			"description": "Untuk production, gunakan base URL deployment dan Origin sesuai ALLOWED_ORIGIN. Kontrak API tersedia di docs/magang-beasiswa-frontend-handoff.md.",
+			"item": [
+				{
+					"name": "Get Info Beasiswa",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:8000/info-beasiswa?page=1&per_page=6",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"info-beasiswa"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "per_page",
+									"value": "6"
+								},
+								{
+									"key": "q",
+									"value": "Prestasi",
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": "active",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Daftar terbaru dengan paginasi, pencarian judul dan filter status pendaftaran."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Info Beasiswa by Slug",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:8000/info-beasiswa/{{infobeasiswa_slug}}",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"info-beasiswa",
+								"{{infobeasiswa_slug}}"
+							]
+						},
+						"description": "Isi variabel infobeasiswa_slug dengan slug dari respons daftar."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Info Magang",
+			"description": "Untuk production, gunakan base URL deployment dan Origin sesuai ALLOWED_ORIGIN. Kontrak API tersedia di docs/magang-beasiswa-frontend-handoff.md.",
+			"item": [
+				{
+					"name": "Get Info Magang",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:8000/info-magang?page=1&per_page=6",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"info-magang"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "per_page",
+									"value": "6"
+								},
+								{
+									"key": "q",
+									"value": "Data",
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": "active",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Daftar terbaru dengan paginasi, pencarian judul dan filter status pendaftaran."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Info Magang by Slug",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:8000/info-magang/{{infomagang_slug}}",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"info-magang",
+								"{{infomagang_slug}}"
+							]
+						},
+						"description": "Isi variabel infomagang_slug dengan slug dari respons daftar."
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"variable": [
 		{
 			"key": "infolomba_slug",
+			"value": "replace-with-slug-from-list",
+			"type": "string"
+		},
+		{
+			"key": "infobeasiswa_slug",
+			"value": "replace-with-slug-from-list",
+			"type": "string"
+		},
+		{
+			"key": "infomagang_slug",
 			"value": "replace-with-slug-from-list",
 			"type": "string"
 		}
