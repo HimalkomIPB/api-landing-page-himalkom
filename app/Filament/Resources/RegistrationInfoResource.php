@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\Auth;
 
 abstract class RegistrationInfoResource extends Resource
 {
-    protected static ?string $navigationGroup = 'Informasi Pendaftaran';
+    protected static ?string $navigationGroup = 'Ilkomerz Hub';
 
     private const STATUS_LABELS = [
         'upcoming' => 'Akan Datang',

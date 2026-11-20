@@ -17,6 +17,8 @@ class InfoBeasiswaResource extends RegistrationInfoResource
 
     protected static ?string $navigationIcon = 'heroicon-o-academic-cap';
 
+    protected static ?int $navigationSort = 1;
+
     public static function getPages(): array
     {
         return [

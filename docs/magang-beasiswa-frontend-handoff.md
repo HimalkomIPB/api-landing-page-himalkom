@@ -111,6 +111,6 @@ Status dihitung saat request memakai tanggal hari ini di zona waktu backend (`AP
 
 Jalankan `php artisan migrate` pada database lingkungan pengujian sebelum memanggil endpoint. Pastikan `APP_URL` mengarah ke base URL API dan `php artisan storage:link` sudah dijalankan agar cover dapat diakses.
 
-Masuk ke Filament dengan akun `ADMIN_EMAIL`, lalu buka `/admin/info-beasiswa` atau `/admin/info-magang` di grup **Informasi Pendaftaran**. Admin mengisi cover (maksimal 2 MB), judul, deskripsi, periode, dan tautan HTTP/HTTPS. Konten yang disimpan langsung muncul di API. Gunakan slug dari respons daftar untuk menguji detail.
+Masuk ke Filament dengan akun `ADMIN_EMAIL`, lalu buka `/admin/info-beasiswa` atau `/admin/info-magang` di grup **Ilkomerz Hub**. Admin mengisi cover (maksimal 2 MB), judul, deskripsi, periode, dan tautan HTTP/HTTPS. Konten yang disimpan langsung muncul di API. Gunakan slug dari respons daftar untuk menguji detail.
 
 Empat request juga tersedia untuk diimpor dari [koleksi Postman](../api_reference_latest.postman_collection.json) di folder **Info Beasiswa** dan **Info Magang**.

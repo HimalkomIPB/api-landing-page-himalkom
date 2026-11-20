@@ -17,6 +17,8 @@ class InfoMagangResource extends RegistrationInfoResource
 
     protected static ?string $navigationIcon = 'heroicon-o-briefcase';
 
+    protected static ?int $navigationSort = 2;
+
     public static function getPages(): array
     {
         return [
